@@ -1,0 +1,61 @@
+# Move this file at the Top of the backend and frontend repos and run with docker-compose up -d --build
+# Example structure:
+
+# |Parent Dir
+# |--form-app-backend
+# |--form-app-frontend
+# |--docker-compose.yml
+
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: form-app-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=jJAhwd21!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - form-app-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./form-app-backend
+      dockerfile: Dockerfile
+    container_name: form-app-backend
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=StudentFormDb;User=sa;Password=jJAhwd21!;TrustServerCertificate=True;
+      - SA_PASSWORD=jJAhwd21!
+    ports:
+      - "5000:80"
+    networks:
+      - form-app-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./form-app-frontend
+      dockerfile: Dockerfile
+    container_name: form-app-frontend
+    depends_on:
+      - backend
+    ports:
+      - "4200:80"
+    networks:
+      - form-app-network
+    restart: unless-stopped
+
+networks:
+  form-app-network:
+    driver: bridge
+
+volumes:
+  sqlserver-data:

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transilvania Star Group | Universitatea Transilvania Brașov – TSG @ UniTBv</title>
+    <meta name="description" content="Transilvania Star Group - Organizația de studenți IT de la Universitatea Transilvania Brașov. Alătură-te echipei noastre!">
+    <link rel="stylesheet" href="tsg-website.css">
+    <link rel="stylesheet" href="tsg-home.css">
+    <link rel="icon" type="image/x-icon" href="app\assets\icons\weblogo.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="app/assets/images/cropped-tsg-small-logo-2.0.png" alt="TSG Logo" class="logo-img">
+                <div class="brand-text">
+                    <h1 class="site-title">Transilvania Star Group</h1>
+                    <p class="university-name">Universitatea Transilvania din Brașov</p>
+                </div>
+            </div>
+            
+            <nav class="main-navigation">
+                <input type="checkbox" class="mobile-menu-checkbox" id="mobile-menu-toggle">
+                <label for="mobile-menu-toggle" class="mobile-menu-toggle">
+                    <img src="app/assets/icons/menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Menu" class="menu-icon">
+                    <img src="app/assets/icons/close_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Close" class="close-icon">
+                </label>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Acasă</a></li>
+                    <li class="nav-item"><a href="src/pages/tsg-team-page.html" class="nav-link">Echipa TSG</a></li>
+                    <li class="nav-item"><a href="src/pages/tsg-projects-page.html" class="nav-link">Proiecte</a></li>
+                    <li class="nav-item"><a href="src/pages/tsg-blog-page.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link contact-btn">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        
+        <!-- Hero Section with Recruitment Banner -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2 class="hero-title">Vrei să înveți și să lucrezi la proiecte pentru îmbunătățirea experienței studențești?</h2>
+                        <p class="hero-subtitle">Transilvania Star Group caută Voluntari</p>
+                        <p class="hero-description">Completează formularul de mai jos!</p>
+                        <div class="hero-buttons">
+                            <a href="src/forms/tsg-application-forms.html" class="btn btn-primary">Completează Formularul</a>
+                            <a href="#despre" class="btn btn-secondary">Află Mai Multe</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="app/assets/images/anunt-tsg-fata.png" alt="TSG Recruitment Banner" class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Volunteer Opportunities Section -->
+        <section class="volunteer-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">🚀 Descoperă Oportunitatea de Voluntariat! 🌈</h2>
+                </div>
+                
+                <div class="volunteer-grid">
+                    <!-- Front End Developer -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Front End Developer – Explorează Creativitatea Digitală!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="tech-requirements">
+                                <h4>🌐 Tehnologii necesare:</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Vue</span>
+                                    <span class="tech-tag">Angular</span>
+                                </div>
+                            </div>
+                            <div class="knowledge-requirements">
+                                <h4>Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>HTML, CSS și JavaScript (ES6+)</li>
+                                    <li>Preprocesatoare CSS (SASS, LESS)</li>
+                                    <li>Cunoștințe de bază Back End (.NET, SQL Server)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Developer -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Mobile Developer (Flutter) – Dă Viață Aplicațiilor Mobile!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="tech-requirements">
+                                <h4>📱 Tehnologii necesare:</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">Flutter</span>
+                                </div>
+                            </div>
+                            <div class="knowledge-requirements">
+                                <h4>Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Cunoștințe solide în dezvoltarea de aplicații mobile cu Flutter</li>
+                                    <li>Experiență cu integrarea API-urilor și baze de date locale</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UI/UX Designer -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Ui/Ux & Web Designer – Modelează Experiența Vizuală!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="tech-requirements">
+                                <h4>🎨 Tehnologii necesare:</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">Figma</span>
+                                    <span class="tech-tag">WordPress</span>
+                                </div>
+                            </div>
+                            <div class="knowledge-requirements">
+                                <h4>Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Experiență cu WordPress & Elementor (teme, plugins)</li>
+                                    <li>Design Ui/Ux folosind Figma/Adobe XD</li>
+                                    <li>Abilitatea de a crea prototip-uri și mockup-uri</li>
+                                    <li>Înțelegerea principiilor de responsive design</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tester -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tester Automat/Manual – Asigură Calitatea Software-ului!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="knowledge-requirements">
+                                <h4>⚙️ Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Cunoștințe în testare manuală și/sau automatizată</li>
+                                    <li>Experiență cu instrumente de testare (Selenium, JUnit, TestNG)</li>
+                                    <li>Cunoștințe de baze de date și SQL pentru verificarea integrității datelor</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Developer -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Back End Developer – Construiește Viitorul Digital!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="tech-requirements">
+                                <h4>🖥️ Tehnologii necesare:</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">.NET</span>
+                                    <span class="tech-tag">SQL Server</span>
+                                </div>
+                            </div>
+                            <div class="knowledge-requirements">
+                                <h4>Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Cunoștințe de bază în dezvoltarea de aplicații .NET (C#, ASP.NET)</li>
+                                    <li>Experiență cu SQL Server și scrierea de proceduri stocate</li>
+                                    <li>Cunoștințe fundamentale de Front End (HTML, CSS, JavaScript)</li>
+                                    <li>Cunoștințe de API-uri RESTful și integrări externe</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Network Engineer -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Network Engineer – Conectează Lumea Digitală!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="tech-requirements">
+                                <h4>🔌 Tehnologii necesare:</h4>
+                                <div class="tech-stack">
+                                    <span class="tech-tag">Networking</span>
+                                </div>
+                            </div>
+                            <div class="knowledge-requirements">
+                                <h4>Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Configurarea și întreținerea rețelelor locale (LAN), VPN-uri și echipamente de rețea</li>
+                                    <li>Cunoștințe de bază în administrarea serverelor și bazelor de date</li>
+                                    <li>Înțelegerea protocoalelor de rețea (TCP/IP, HTTP, DNS, DHCP)</li>
+                                    <li>Abilitatea de a rezolva probleme legate de conectivitate și performanță a rețelei</li>
+                                    <li>Cunoștințe fundamentale de administrare a infrastructurii IT</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HR Specialist -->
+                    <div class="volunteer-card">
+                        <div class="card-header">
+                            <h3 class="card-title">HR Specialist – Explorează Lumea Resurselor Umane!</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="knowledge-requirements">
+                                <h4>🤝 Cunoștințe minime:</h4>
+                                <ul class="requirements-list">
+                                    <li>Experiență în recrutare și selecție</li>
+                                    <li>Abilități excelente de comunicare și organizare</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="volunteer-cta">
+                    <h3>Alătură-te echipei noastre! 🚀</h3>
+                    <div class="benefits">
+                        <h4>Ce îți oferim:</h4>
+                        <ul class="benefits-list">
+                            <li>Experiență profesională din timpul studenției</li>
+                            <li>Posibilitatea de a învăța și de a te dezvolta continuu</li>
+                            <li>Distracție și oportunități de a îmbunătăți viața studenților</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <div class="section-container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2 class="section-title">Cine suntem?</h2>
+                        <div class="about-description">
+                            <p>
+                                <strong>Transilvania Star Group (TSG)</strong> reprezintă un grup de studenți care și-a propus 
+                                modernizarea universității prin crearea de aplicații software pentru îmbunătățirea sistemului IT 
+                                al Universității Transilvania din Brașov și prin facilitarea relațiilor cu mediul economic.
+                            </p>
+                            <p>
+                                De asemenea, echipa promovează oportunități de dezvoltare personală și profesională pentru 
+                                studenții Universității Transilvania pe canalele interne de comunicare și prin oportunitatea 
+                                de practică în cadrul echipei.
+                            </p>
+                            <p>
+                                <strong>Studenția devine inedită atunci când studenții se implică și își implementează ideile lor.</strong>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        <img src="app/assets/images/cine_suntem.jpg" alt="Echipa TSG" class="about-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Preview Section -->
+        <section class="projects-preview">
+            <div class="section-container">
+                <div class="projects-grid">
+                    <!-- Student App -->
+                    <div class="project-preview-card">
+                        <h3 class="project-title">Aplicația de mobil Student@UNITBV</h3>
+                        <p class="project-description">
+                            Aplicația Student@UNITBV ajută studenții să își organizeze mai bine prioritățile de la facultate, 
+                            aplicația dispunând de diferite feature-uri foarte utile. În cadrul acesteia, studenții își pot 
+                            verifica orarul într-un format accesibil, notele, harta corpurilor de clădire, regulamentele, 
+                            meniul zilnic de la cantină, știrile și evenimentele importante.
+                        </p>
+                    </div>
+
+                    <!-- AGSIS -->
+                    <div class="project-preview-card">
+                        <h3 class="project-title">Aplicația de cazare AGSIS</h3>
+                        <p class="project-description">
+                            Reprezintă proiectul de debut al echipei, proiect propus în cadrul programului „Noi dezvoltăm 
+                            Universitatea". Aplicația a avut ca scop digitalizarea procesului de cazare în căminele studențești, 
+                            prin realizarea unei fluidități mai bune a procesului.
+                        </p>
+                    </div>
+
+                    <!-- Canteen App -->
+                    <div class="project-preview-card">
+                        <h3 class="project-title">Aplicația de CANTINĂ</h3>
+                        <p class="project-description">
+                            Aplicația de cantină a fost creată cu scopul îmbunătățirii procesului de actualizare a meniului zilnic. 
+                            Aceasta poate fi accesată atât din platforma Intranet a universității, unde studenții pot verifica 
+                            meniul din ziua curentă, cât și din aplicația de mobil Student@UNITBV.
+                        </p>
+                    </div>
+
+                    <!-- Liquidation -->
+                    <div class="project-preview-card">
+                        <h3 class="project-title">Lichidare</h3>
+                        <p class="project-description">
+                            Dacă nu știi la ce se referă acest proiect sau cum e sa trebuiască sa mergi fizic cu o hartie de 
+                            lichidare pentru a fi semnată de către secretariatul facultății, secretariatul de departament, 
+                            serviciul cămine, biroul Erasmus și bibliotecă, asta este datorită faptului ca am digitalizat 
+                            și automatizat acest proces.
+                        </p>
+                    </div>
+
+                    <!-- Registry -->
+                    <div class="project-preview-card">
+                        <h3 class="project-title">Registratură</h3>
+                        <p class="project-description">
+                            În încercarea de a continua îmbunătățirea experienței tuturor membrilor Universității, fost creat 
+                            un sistem hibrid al fluxurilor de documente din cadrul Rectoratului Universității. Aplicația prezintă 
+                            funcțiile unui sistem de management al documentelor.
+                        </p>
+                    </div>
+
+                    <!-- Code Quote -->
+                    <div class="project-preview-card code-quote">
+                        <h3 class="quote-text">EAT. SLEEP. CODE. REPEAT.</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="section-container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h2 class="section-title">Ai întrebări pentru noi sau vrei să faci parte din echipă?</h2>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <h4>Probleme tehnice:</h4>
+                                <a href="mailto:tsg.unitbv@gmail.com" class="contact-email">tsg.unitbv@gmail.com</a>
+                            </div>
+                            <div class="contact-method">
+                                <h4>Resurse umane:</h4>
+                                <a href="mailto:hr.tsg.unitbv@gmail.com" class="contact-email">hr.tsg.unitbv@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-image">
+                        <img src="app/assets/images/imagine.jpg" alt="Contact TSG" class="contact-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="site-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="app/assets/icons/tsg-logo-footer.png" alt="TSG Logo Footer" class="footer-logo">
+                    <p class="footer-description">
+                        Transilvania Star Group - Organizația de studenți IT care modernizează 
+                        educația tehnologică la Universitatea Transilvania Brașov.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Navigare</h4>
+                        <ul class="footer-menu">
+                            <li><a href="index.html" class="footer-link">Acasă</a></li>
+                            <li><a href="src/pages/tsg-team-page.html" class="footer-link">Echipa TSG</a></li>
+                            <li><a href="src/pages/tsg-projects-page.html" class="footer-link">Proiecte</a></li>
+                            <li><a href="src/pages/tsg-blog-page.html" class="footer-link">Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Contact</h4>
+                        <ul class="footer-menu">
+                            <li><a href="mailto:tsg.unitbv@gmail.com" class="footer-link">tsg.unitbv@gmail.com</a></li>
+                            <li><a href="mailto:hr.tsg.unitbv@gmail.com" class="footer-link">hr.tsg.unitbv@gmail.com</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Social Media</h4>
+                        <div class="footer-social">
+                            <ul class="animated-social">
+                                 <li>
+                                    <a href="https://www.facebook.com/transilvaniastargroup/" aria-label="Facebook">
+                                        <i class="fab fa-facebook-f icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/transilvaniastargroup/" aria-label="Instagram">
+                                        <i class="fab fa-instagram icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/company/transilvania-star-group/posts/?feedView=all" aria-label="LinkedIn">
+                                        <i class="fab fa-linkedin-in icon"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/channel/UC5PbsYmTh2kJuK9G9-GJfZQ" aria-label="YouTube">
+                                        <i class="fab fa-youtube icon"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Transilvania Star Group. Toate drepturile rezervate.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

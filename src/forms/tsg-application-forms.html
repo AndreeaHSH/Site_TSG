@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicare Voluntariat – Transilvania Star Group | Universitatea Transilvania Brașov</title>
+    <meta name="description" content="Aplică pentru a deveni voluntar în echipa Transilvania Star Group. Completează formularul de aplicare online.">
+    <link rel="stylesheet" href="../../tsg-website.css">
+    <link rel="stylesheet" href="../../tsg-forms.css">
+    <link rel="icon" type="image/x-icon" href="app\assets\icons\weblogo.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-logo">
+                <img src="../../app/assets/images/cropped-tsg-small-logo-2.0.png" alt="TSG Logo" class="logo-img">
+                <div class="brand-text">
+                    <h1 class="site-title">Transilvania Star Group</h1>
+                    <p class="university-name">Universitatea Transilvania din Brașov</p>
+                </div>
+            </div>
+            
+            <nav class="main-navigation">
+                <input type="checkbox" class="mobile-menu-checkbox" id="mobile-menu-toggle">
+                <label for="mobile-menu-toggle" class="mobile-menu-toggle">
+                    <img src="../../app/assets/icons/menu_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Menu" class="menu-icon">
+                    <img src="../../app/assets/icons/close_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="Close" class="close-icon">
+                </label>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="../../index.html" class="nav-link">Acasă</a></li>
+                    <li class="nav-item"><a href="../pages/tsg-team-page.html" class="nav-link">Echipa TSG</a></li>
+                    <li class="nav-item"><a href="../pages/tsg-projects-page.html" class="nav-link">Proiecte</a></li>
+                    <li class="nav-item"><a href="../pages/tsg-blog-page.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item">
+                        <a href="../../index.html#contact" class="nav-link contact-btn">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="site-main">
+        
+        <!-- Application Form Section -->
+        <section class="application-section">
+            <div class="section-container">
+                
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h2 class="section-title">Aplicare Voluntariat TSG</h2>
+                    <p class="form-description">
+                        Completează formularul de mai jos pentru a aplica ca voluntar în echipa Transilvania Star Group. 
+                        Te vom contacta în cel mai scurt timp cu detalii despre următorii pași.
+                    </p>
+                </div>
+
+                <!-- Application Form -->
+                <div class="application-form-container">
+                    <form class="application-form" action="#" method="post" enctype="multipart/form-data">
+                        
+                        <!-- Personal Information -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Informații Personale</legend>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="first-name" class="form-label">Prenume<span class="required-asterisk">*</span></label>
+                                    <input type="text" id="first-name" name="first_name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last-name" class="form-label">Nume<span class="required-asterisk">*</span></label>
+                                    <input type="text" id="last-name" name="last_name" class="form-input" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Adresa de email<span class="required-asterisk">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Telefon<span class="required-asterisk">*</span></label>
+                                    <input type="tel" id="phone" name="phone" class="form-input" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="birth-date" class="form-label">Data nașterii<span class="required-asterisk">*</span></label>
+                                <input type="date" id="birth-date" name="birth_date" class="form-input" required>
+                            </div>
+                        </fieldset>
+
+                        <!-- Academic Information -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Informații Academice</legend>
+                            
+                            <div class="form-group">
+                                <label for="faculty" class="form-label">Facultatea<span class="required-asterisk">*</span></label>
+                                <select id="faculty" name="faculty" class="form-select" required>
+                                    <option value="">Selectează facultatea</option>
+                                    <option value="design-produs-mediu">Design de produs și mediu</option>
+                                    <option value="inginerie-electrica-calculatoare">Inginerie electrică și știința calculatoarelor</option>
+                                    <option value="design-mobilier-lemn">Design de mobilier și inginerie a lemnului</option>
+                                    <option value="inginerie-mecanica">Inginerie mecanică</option>
+                                    <option value="inginerie-tehnologica-management">Inginerie tehnologică și management industrial</option>
+                                    <option value="silvicultura-exploatari">Silvicultură și exploatări forestiere</option>
+                                    <option value="stiinta-ingineria-materialelor">Știința și ingineria materialelor</option>
+                                    <option value="drept">Drept</option>
+                                    <option value="educatie-fizica-sporturi">Educație fizică și sporturi montane</option>
+                                    <option value="litere">Litere</option>
+                                    <option value="matematica-informatica">Matematică și informatică</option>
+                                    <option value="medicina">Medicină</option>
+                                    <option value="muzica">Muzică</option>
+                                    <option value="psihologie-stiinte-educatie">Psihologie și științele educației</option>
+                                    <option value="sociologie-comunicare">Sociologie și comunicare</option>
+                                    <option value="stiinte-economice-afaceri">Științe economice și administrarea afacerilor</option>
+                                    <option value="alimentatie-turism">Alimentație și turism</option>
+                                    <option value="constructii">Construcții</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="specialization" class="form-label">Specializarea<span class="required-asterisk">*</span></label>
+                                    <input type="text" id="specialization" name="specialization" class="form-input" 
+                                           placeholder="ex: Informatică, Calculatoare, etc." required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="year" class="form-label">Anul de studiu<span class="required-asterisk">*</span></label>
+                                    <select id="year" name="year" class="form-select" required>
+                                        <option value="">Selectează anul</option>
+                                        <option value="1">Anul I</option>
+                                        <option value="2">Anul II</option>
+                                        <option value="3">Anul III</option>
+                                        <option value="4">Anul IV</option>
+                                        <option value="master1">Master I</option>
+                                        <option value="master2">Master II</option>
+                                        <option value="doctorat">Doctorat</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="student-id" class="form-label">Numărul de matricol</label>
+                                <input type="text" id="student-id" name="student_id" class="form-input" 
+                                       placeholder="ex: 123456">
+                            </div>
+                        </fieldset>
+
+                        <!-- Role Preferences -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Preferințe de Rol</legend>
+                            
+                            <div class="form-group">
+                                <label for="preferred-role" class="form-label">Rolul preferat<span class="required-asterisk">*</span></label>
+                                <select id="preferred-role" name="preferred_role" class="form-select" required>
+                                    <option value="">Selectează rolul preferat</option>
+                                    <option value="frontend">Frontend Developer</option>
+                                    <option value="backend">Backend Developer</option>
+                                    <option value="mobile">Mobile Developer (Flutter)</option>
+                                    <option value="uiux">UI/UX & Web Designer</option>
+                                    <option value="tester">Tester Automat/Manual</option>
+                                    <option value="network">Network Engineer</option>
+                                    <option value="hr">HR Specialist</option>
+                                    <option value="marketing">Marketing & Communication</option>
+                                    <option value="other">Altul (specifică în descriere)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="alternative-role" class="form-label">Rol alternativ</label>
+                                <select id="alternative-role" name="alternative_role" class="form-select">
+                                    <option value="">Selectează un rol alternativ</option>
+                                    <option value="frontend">Frontend Developer</option>
+                                    <option value="backend">Backend Developer</option>
+                                    <option value="mobile">Mobile Developer (Flutter)</option>
+                                    <option value="uiux">UI/UX & Web Designer</option>
+                                    <option value="tester">Tester Automat/Manual</option>
+                                    <option value="network">Network Engineer</option>
+                                    <option value="hr">HR Specialist</option>
+                                    <option value="marketing">Marketing & Communication</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        <!-- Technical Skills -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Competențe Tehnice</legend>
+                            
+                            <div class="form-group">
+                                <label for="programming-languages" class="form-label">Limbaje de programare cunoscute</label>
+                                <div class="checkbox-grid">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="javascript">
+                                        <span class="checkbox-label">JavaScript</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="typescript">
+                                        <span class="checkbox-label">TypeScript</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="java">
+                                        <span class="checkbox-label">Java</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="csharp">
+                                        <span class="checkbox-label">C#</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="cpp">
+                                        <span class="checkbox-label">C++</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="php">
+                                        <span class="checkbox-label">PHP</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="dart">
+                                        <span class="checkbox-label">Dart</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="python">
+                                        <span class="checkbox-label">Python</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="bash/powershell">
+                                        <span class="checkbox-label">Bash/PowerShell</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="sql">
+                                        <span class="checkbox-label">SQL</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="languages[]" value="other">
+                                        <span class="checkbox-label">Altele</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="frameworks" class="form-label">Framework-uri și tehnologii</label>
+                                <textarea id="frameworks" name="frameworks" class="form-textarea" rows="3" 
+                                         placeholder="ex: React, Angular, Vue.js, .NET, Django, Flutter, etc."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tools" class="form-label">Instrumente și software</label>
+                                <textarea id="tools" name="tools" class="form-textarea" rows="3" 
+                                         placeholder="ex: Git, Visual Studio, Figma, Adobe Creative Suite, etc."></textarea>
+                            </div>
+                        </fieldset>
+
+                        <!-- Experience -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Experiență și Motivație</legend>
+                            
+                            <div class="form-group">
+                                <label for="experience" class="form-label">Experiența anterioară (proiecte, internship-uri, etc.)</label>
+                                <textarea id="experience" name="experience" class="form-textarea" rows="4" 
+                                         placeholder="Descrie experiența ta relevantă în domeniul IT/design/marketing"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="motivation" class="form-label">De ce vrei să te alături echipei TSG?<span class="required-asterisk">*</span></label>
+                                <textarea id="motivation" name="motivation" class="form-textarea" rows="4" 
+                                         placeholder="Explică motivația ta și ce sperai să obții din această experiență" required></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contribution" class="form-label">Cum crezi că poți contribui la TSG?<span class="required-asterisk">*</span></label>
+                                <textarea id="contribution" name="contribution" class="form-textarea" rows="4" 
+                                         placeholder="Descrie competențele și ideile pe care le poți aduce echipei" required></textarea>
+                            </div>
+                        </fieldset>
+
+                        <!-- Availability -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Disponibilitate</legend>
+                            
+                            <div class="form-group">
+                                <label for="time-commitment" class="form-label">Câte ore pe săptămână poți dedica TSG?<span class="required-asterisk">*</span></label>
+                                <select id="time-commitment" name="time_commitment" class="form-select" required>
+                                    <option value="">Selectează disponibilitatea</option>
+                                    <option value="1-3">1-3 ore/săptămână</option>
+                                    <option value="4-6">4-6 ore/săptămână</option>
+                                    <option value="7-10">7-10 ore/săptămână</option>
+                                    <option value="10+">Peste 10 ore/săptămână</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="schedule" class="form-label">Când ești disponibil?</label>
+                                <div class="checkbox-grid">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="schedule[]" value="weekdays">
+                                        <span class="checkbox-label">Zilele lucrătoare</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="schedule[]" value="weekends">
+                                        <span class="checkbox-label">Weekend-uri</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="schedule[]" value="evenings">
+                                        <span class="checkbox-label">Serile</span>
+                                    </label>
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="schedule[]" value="flexible">
+                                        <span class="checkbox-label">Program flexibil</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <!-- File Upload -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Documente (Opțional)</legend>
+                            
+                            <div class="form-group">
+                                <label for="cv" class="form-label">CV (PDF, DOC, DOCX - max 5MB)</label>
+                                <input type="file" id="cv" name="cv" class="form-file" 
+                                       accept=".pdf,.doc,.docx" aria-describedby="cv-help">
+                                <small id="cv-help" class="form-help">Încarcă CV-ul tău pentru o evaluare mai completă</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="portfolio" class="form-label">Portofoliu/Link-uri (GitHub, Behance, etc.)</label>
+                                <textarea id="portfolio" name="portfolio" class="form-textarea" rows="3" 
+                                         placeholder="Adaugă link-uri către proiectele tale (GitHub, Behance, site personal, etc.)"></textarea>
+                            </div>
+                        </fieldset>
+
+                        <!-- Agreements -->
+                        <fieldset class="form-section">
+                            <legend class="section-legend">Acorduri și Confidențialitate</legend>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="data_processing" class="form-checkbox" required>
+                                    <span class="checkmark"></span>
+                                    Sunt de acord cu procesarea datelor personale în conformitate cu GDPR<span class="required-asterisk">*</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="terms" class="form-checkbox" required>
+                                    <span class="checkmark"></span>
+                                    Accept termenii și condițiile de voluntariat TSG<span class="required-asterisk">*</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="newsletter" class="form-checkbox">
+                                    <span class="checkmark"></span>
+                                    Vreau să primesc newsletter-ul TSG cu ultimele noutăți
+                                </label>
+                            </div>
+                        </fieldset>
+
+                        <!-- Submit Button -->
+                        <div class="form-submit-section">
+                            <button type="submit" class="form-submit btn btn-primary">
+                                Trimite Aplicația
+                            </button>
+                            <p class="submit-note">
+                                <span class="required-asterisk">*</span> Câmpurile marcate cu asterisc sunt obligatorii<br>
+                                Te vom contacta în termen de 7-14 zile cu un răspuns.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="additional-info">
+                    <div class="info-card">
+                        <h3>Ce urmează după aplicare?</h3>
+                        <ol class="process-steps">
+                            <li>Primești confirmarea aplicației prin email</li>
+                            <li>Echipa noastră evaluează aplicația (7-14 zile)</li>
+                            <li>Dacă ești selectat, te contactăm pentru un interviu informal</li>
+                            <li>După interviu, începi perioada de probă (2-4 săptămâni)</li>
+                            <li>Devii membru oficial al echipei TSG!</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h3>Întrebări frecvente</h3>
+                        <div class="faq-item">
+                            <h4>Este necesară experiența anterioară?</h4>
+                            <p>Nu, căutăm și începători motivați care vor să învețe și să contribuie.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Cât timp durează perioada de voluntariat?</h4>
+                            <p>Nu există o perioadă minimă sau maximă. Mulți membri rămân activi tot timpul facultății.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h4>Pot aplica la mai multe roluri?</h4>
+                            <p>Da, poți selecta un rol preferat și unul alternativ în formularul de aplicare.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="site-footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../../app/assets/icons/tsg-logo-footer.png" alt="TSG Logo Footer" class="footer-logo">
+                    <p class="footer-description">
+                        Transilvania Star Group - Organizația de studenți IT care modernizează 
+                        educația tehnologică la Universitatea Transilvania Brașov.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Navigare</h4>
+                        <ul class="footer-menu">
+                            <li><a href="../../index.html" class="footer-link">Acasă</a></li>
+                            <li><a href="../pages/tsg-team-page.html" class="footer-link">Echipa TSG</a></li>
+                            <li><a href="../pages/tsg-projects-page.html" class="footer-link">Proiecte</a></li>
+                            <li><a href="../pages/tsg-blog-page.html" class="footer-link">Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4 class="footer-heading">Contact</h4>
+                        <ul class="footer-menu">
+                            <li><a href="mailto:tsg.unitbv@gmail.com" class="footer-link">tsg.unitbv@gmail.com</a></li>
+                            <li><a href="mailto:hr.tsg.unitbv@gmail.com" class="footer-link">hr.tsg.unitbv@gmail.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Transilvania Star Group. Toate drepturile rezervate.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- Add this JavaScript before closing </body> tag in your tsg-application-forms.html -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.application-form');
+    const submitBtn = document.querySelector('.form-submit');
+    
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Se trimite...';
+            
+            try {
+                // Collect form data
+                const formData = {
+                    // Map to your backend fields
+                    name: document.getElementById('first-name')?.value || '',
+                    surname: document.getElementById('last-name')?.value || '',
+                    email: document.getElementById('email')?.value || '',
+                    phone: document.getElementById('phone')?.value || '',
+                    birthDate: document.getElementById('birth-date')?.value || null,
+                    faculty: document.getElementById('faculty')?.value || '',
+                    specialization: document.getElementById('specialization')?.value || '',
+                    year: document.getElementById('year')?.value || '',
+                    studentId: document.getElementById('student-id')?.value || null,
+                    preferredRole: document.getElementById('preferred-role')?.value || '',
+                    alternativeRole: document.getElementById('alternative-role')?.value || null,
+                    programmingLanguages: Array.from(document.querySelectorAll('input[name="languages[]"]:checked'))
+                        .map(cb => cb.value).join(', '),
+                    frameworks: document.getElementById('frameworks')?.value || null,
+                    tools: document.getElementById('tools')?.value || null,
+                    experience: document.getElementById('experience')?.value || null,
+                    motivation: document.getElementById('motivation')?.value || '',
+                    contribution: document.getElementById('contribution')?.value || '',
+                    timeCommitment: document.getElementById('time-commitment')?.value || '',
+                    schedule: Array.from(document.querySelectorAll('input[name="schedule[]"]:checked'))
+                        .map(cb => cb.value).join(', '),
+                    portfolio: document.getElementById('portfolio')?.value || null,
+                    dataProcessingAgreement: document.querySelector('input[name="data_processing"]')?.checked || false,
+                    termsAgreement: document.querySelector('input[name="terms"]')?.checked || false,
+                    newsletterSubscription: document.querySelector('input[name="newsletter"]')?.checked || false
+                };
+                
+                console.log('Sending form data:', formData);
+                
+                // Submit to your backend API
+                const response = await fetch('http://localhost:5000/api/forms/tsg-submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    showMessage('✅ Aplicația a fost trimisă cu succes! Te vom contacta în curând.', 'success');
+                    form.reset();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    console.error('Server error:', result);
+                    showMessage('❌ A apărut o eroare. Te rugăm să încerci din nou.', 'error');
+                }
+                
+            } catch (error) {
+                console.error('Network error:', error);
+                showMessage('❌ A apărut o eroare de conexiune. Te rugăm să încerci din nou.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Trimite Aplicația';
+            }
+        });
+    }
+    
+    function showMessage(message, type) {
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) existingMessage.remove();
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'form-message';
+        messageDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            z-index: 9999;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease-out;
+            ${type === 'success' 
+                ? 'background: linear-gradient(45deg, #28a745, #20c997);' 
+                : 'background: linear-gradient(45deg, #dc3545, #e74c3c);'
+            }
+        `;
+        messageDiv.innerHTML = message;
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(messageDiv);
+        
+        setTimeout(() => {
+            messageDiv.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => {
+                if (messageDiv.parentNode) messageDiv.parentNode.removeChild(messageDiv);
+            }, 300);
+        }, 7000);
+    }
+});
+</script>
+
+
+</body>
+</html>
