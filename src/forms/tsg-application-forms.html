@@ -7,7 +7,7 @@
     <meta name="description" content="Aplică pentru a deveni voluntar în echipa Transilvania Star Group. Completează formularul de aplicare online.">
     <link rel="stylesheet" href="../../tsg-website.css">
     <link rel="stylesheet" href="../../tsg-forms.css">
-    <link rel="icon" type="image/x-icon" href="app\assets\icons\weblogo.ico">
+    <link rel="icon" type="image/x-icon" href="../../app/assets/icons/weblogo.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -434,124 +434,7 @@
         </div>
     </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.application-form');
-    const submitBtn = document.querySelector('.form-submit');
-    
-    if (form) {
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Se trimite...';
-            
-            try {
-                const formData = {
-                    name: document.getElementById('first-name')?.value || '',
-                    surname: document.getElementById('last-name')?.value || '',
-                    email: document.getElementById('email')?.value || '',
-                    phone: document.getElementById('phone')?.value || '',
-                    birthDate: document.getElementById('birth-date')?.value || null,
-                    faculty: document.getElementById('faculty')?.value || '',
-                    specialization: document.getElementById('specialization')?.value || '',
-                    year: document.getElementById('year')?.value || '',
-                    studentId: document.getElementById('student-id')?.value || null,
-                    preferredRole: document.getElementById('preferred-role')?.value || '',
-                    alternativeRole: document.getElementById('alternative-role')?.value || null,
-                    programmingLanguages: Array.from(document.querySelectorAll('input[name="languages[]"]:checked'))
-                        .map(cb => cb.value).join(', '),
-                    frameworks: document.getElementById('frameworks')?.value || null,
-                    tools: document.getElementById('tools')?.value || null,
-                    experience: document.getElementById('experience')?.value || null,
-                    motivation: document.getElementById('motivation')?.value || '',
-                    contribution: document.getElementById('contribution')?.value || '',
-                    timeCommitment: document.getElementById('time-commitment')?.value || '',
-                    schedule: Array.from(document.querySelectorAll('input[name="schedule[]"]:checked'))
-                        .map(cb => cb.value).join(', '),
-                    portfolio: document.getElementById('portfolio')?.value || null,
-                    dataProcessingAgreement: document.querySelector('input[name="data_processing"]')?.checked || false,
-                    termsAgreement: document.querySelector('input[name="terms"]')?.checked || false,
-                    newsletterSubscription: document.querySelector('input[name="newsletter"]')?.checked || false
-                };
-                
-                console.log('Sending form data:', formData);
-                
-                const response = await fetch('http://localhost:5000/api/forms/tsg-submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok && result.success) {
-                    showMessage('✅ Aplicația a fost trimisă cu succes! Te vom contacta în curând.', 'success');
-                    form.reset();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    console.error('Server error:', result);
-                    showMessage('❌ A apărut o eroare. Te rugăm să încerci din nou.', 'error');
-                }
-                
-            } catch (error) {
-                console.error('Network error:', error);
-                showMessage('❌ A apărut o eroare de conexiune. Te rugăm să încerci din nou.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Trimite Aplicația';
-            }
-        });
-    }
-    
-    function showMessage(message, type) {
-        const existingMessage = document.querySelector('.form-message');
-        if (existingMessage) existingMessage.remove();
-        
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'form-message';
-        messageDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            z-index: 9999;
-            max-width: 400px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            animation: slideIn 0.3s ease-out;
-            ${type === 'success' 
-                ? 'background: linear-gradient(45deg, #28a745, #20c997);' 
-                : 'background: linear-gradient(45deg, #dc3545, #e74c3c);'
-            }
-        `;
-        messageDiv.innerHTML = message;
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
-        document.body.appendChild(messageDiv);
-        
-        setTimeout(() => {
-            messageDiv.style.animation = 'slideIn 0.3s ease-out reverse';
-            setTimeout(() => {
-                if (messageDiv.parentNode) messageDiv.parentNode.removeChild(messageDiv);
-            }, 300);
-        }, 7000);
-    }
-});
-</script>
-
-
+  <script src="../../tsg-form-handler.js">
+  </script>
 </body>
 </html>

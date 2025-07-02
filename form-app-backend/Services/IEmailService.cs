@@ -33,9 +33,7 @@ namespace form_app_backend.Services
             // For now, just log the notification sending
             _logger.LogInformation($"Sending notification email for new submission from {studentForm.Name} {studentForm.Surname}");
             
-            // TODO: Implement actual email sending logic here
-            // You can use services like SendGrid, SMTP, etc.
-            
+          
             await Task.CompletedTask;
         }
     }

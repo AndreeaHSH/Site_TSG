@@ -72,18 +72,18 @@ namespace form_app_backend.Controllers
                 // Personal Information
                 Name = studentFormDto.Name,
                 Surname = studentFormDto.Surname,
-                Email = studentFormDto.Email,
-                Phone = studentFormDto.Phone,
-                BirthDate = studentFormDto.BirthDate,
+                Email = studentFormDto.Email ?? "not-provided@example.com",
+                Phone = studentFormDto.Phone ?? "Not provided",
+                BirthDate = studentFormDto.BirthDate ?? DateTime.Now.AddYears(-20),
                 
                 // Academic Information
                 Faculty = studentFormDto.Faculty,
-                Specialization = studentFormDto.Specialization,
-                Year = studentFormDto.Year,
+                Specialization = studentFormDto.Specialization ?? "Not specified",
+                Year = studentFormDto.Year ?? "Not specified",
                 StudentId = studentFormDto.StudentId,
                 
                 // Role Preferences
-                PreferredRole = studentFormDto.PreferredRole,
+                PreferredRole = studentFormDto.PreferredRole ?? "Not specified",
                 AlternativeRole = studentFormDto.AlternativeRole,
                 
                 // Technical Skills
@@ -94,10 +94,10 @@ namespace form_app_backend.Controllers
                 // Experience and Motivation
                 Experience = studentFormDto.Experience,
                 Motivation = studentFormDto.Motivation,
-                Contribution = studentFormDto.Contribution,
+                Contribution = studentFormDto.Contribution ?? "Not specified",
                 
                 // Availability
-                TimeCommitment = studentFormDto.TimeCommitment,
+                TimeCommitment = studentFormDto.TimeCommitment ?? "Not specified",
                 Schedule = studentFormDto.Schedule,
                 
                 // Documents
@@ -138,25 +138,36 @@ namespace form_app_backend.Controllers
                 return NotFound();
             }
 
-            // Update properties
+            // Update properties (only update if provided)
             studentForm.Name = studentFormDto.Name;
             studentForm.Surname = studentFormDto.Surname;
-            studentForm.Email = studentFormDto.Email;
-            studentForm.Phone = studentFormDto.Phone;
-            studentForm.BirthDate = studentFormDto.BirthDate;
             studentForm.Faculty = studentFormDto.Faculty;
-            studentForm.Specialization = studentFormDto.Specialization;
-            studentForm.Year = studentFormDto.Year;
+            studentForm.Motivation = studentFormDto.Motivation;
+            
+            // Update optional fields only if provided
+            if (!string.IsNullOrEmpty(studentFormDto.Email))
+                studentForm.Email = studentFormDto.Email;
+            if (!string.IsNullOrEmpty(studentFormDto.Phone))
+                studentForm.Phone = studentFormDto.Phone;
+            if (studentFormDto.BirthDate.HasValue)
+                studentForm.BirthDate = studentFormDto.BirthDate.Value;
+            if (!string.IsNullOrEmpty(studentFormDto.Specialization))
+                studentForm.Specialization = studentFormDto.Specialization;
+            if (!string.IsNullOrEmpty(studentFormDto.Year))
+                studentForm.Year = studentFormDto.Year;
+            if (!string.IsNullOrEmpty(studentFormDto.PreferredRole))
+                studentForm.PreferredRole = studentFormDto.PreferredRole;
+            if (!string.IsNullOrEmpty(studentFormDto.Contribution))
+                studentForm.Contribution = studentFormDto.Contribution;
+            if (!string.IsNullOrEmpty(studentFormDto.TimeCommitment))
+                studentForm.TimeCommitment = studentFormDto.TimeCommitment;
+                
             studentForm.StudentId = studentFormDto.StudentId;
-            studentForm.PreferredRole = studentFormDto.PreferredRole;
             studentForm.AlternativeRole = studentFormDto.AlternativeRole;
             studentForm.ProgrammingLanguages = studentFormDto.ProgrammingLanguages;
             studentForm.Frameworks = studentFormDto.Frameworks;
             studentForm.Tools = studentFormDto.Tools;
             studentForm.Experience = studentFormDto.Experience;
-            studentForm.Motivation = studentFormDto.Motivation;
-            studentForm.Contribution = studentFormDto.Contribution;
-            studentForm.TimeCommitment = studentFormDto.TimeCommitment;
             studentForm.Schedule = studentFormDto.Schedule;
             studentForm.Portfolio = studentFormDto.Portfolio;
 
