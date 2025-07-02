@@ -1,14 +1,8 @@
-/* ========================================
-   TSG Projects Page Specific Styles (projects.css)
-   ======================================== */
-
-/* Projects Section */
 .projects-section {
     padding: 5rem 0;
     background: var(--white);
 }
 
-/* Featured Project */
 .featured-project {
     margin-bottom: 4rem;
     background: var(--white);
@@ -58,7 +52,6 @@
     transform: scale(1.05);
 }
 
-/* Projects Grid */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -110,7 +103,6 @@
     font-style: italic;
 }
 
-/* External Sites Section */
 .external-sites-section {
     margin-top: 4rem;
     padding: 3rem 0;
@@ -145,7 +137,6 @@
 }
 
 .site-content {
-    /* No specific styles needed, inherits from parent */
 }
 
 .site-title {
@@ -183,7 +174,6 @@
     transform: translateX(2px);
 }
 
-/* Enhanced Hover Effects */
 .project-card:hover .card-title {
     color: var(--secondary-teal);
 }
@@ -192,12 +182,10 @@
     color: var(--secondary-teal);
 }
 
-/* Loading Animation for Images */
 .featured-img {
     background: linear-gradient(135deg, var(--light-gray), #e0e8f0);
 }
 
-/* Responsive Design for Projects Page */
 @media (max-width: 992px) {
     .featured-project .project-content {
         grid-template-columns: 1fr;
@@ -285,7 +273,6 @@
     }
 }
 
-/* Print Styles for Projects */
 @media print {
     .featured-project,
     .project-card,

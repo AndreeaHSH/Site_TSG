@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header class="site-header">
         <div class="header-container">
             <div class="header-logo">
@@ -44,14 +43,9 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="site-main">
-        
-        <!-- Application Form Section -->
         <section class="application-section">
             <div class="section-container">
-                
-                <!-- Form Header -->
                 <div class="form-header">
                     <h2 class="section-title">Aplicare Voluntariat TSG</h2>
                     <p class="form-description">
@@ -60,11 +54,9 @@
                     </p>
                 </div>
 
-                <!-- Application Form -->
                 <div class="application-form-container">
                     <form class="application-form" action="#" method="post" enctype="multipart/form-data">
                         
-                        <!-- Personal Information -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Informații Personale</legend>
                             
@@ -96,7 +88,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Academic Information -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Informații Academice</legend>
                             
@@ -153,7 +144,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Role Preferences -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Preferințe de Rol</legend>
                             
@@ -189,7 +179,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Technical Skills -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Competențe Tehnice</legend>
                             
@@ -256,7 +245,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Experience -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Experiență și Motivație</legend>
                             
@@ -279,7 +267,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Availability -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Disponibilitate</legend>
                             
@@ -317,7 +304,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- File Upload -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Documente (Opțional)</legend>
                             
@@ -335,7 +321,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Agreements -->
                         <fieldset class="form-section">
                             <legend class="section-legend">Acorduri și Confidențialitate</legend>
                             
@@ -364,7 +349,6 @@
                             </div>
                         </fieldset>
 
-                        <!-- Submit Button -->
                         <div class="form-submit-section">
                             <button type="submit" class="form-submit btn btn-primary">
                                 Trimite Aplicația
@@ -377,7 +361,6 @@
                     </form>
                 </div>
 
-                <!-- Additional Information -->
                 <div class="additional-info">
                     <div class="info-card">
                         <h3>Ce urmează după aplicare?</h3>
@@ -411,7 +394,6 @@
         </section>
     </main>
 
-    <!-- Footer -->
     <footer id="contact" class="site-footer">
         <div class="footer-container">
             <div class="footer-content">
@@ -452,7 +434,6 @@
         </div>
     </footer>
 
-<!-- Add this JavaScript before closing </body> tag in your tsg-application-forms.html -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.application-form');
@@ -462,14 +443,11 @@ document.addEventListener('DOMContentLoaded', function() {
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = 'Se trimite...';
             
             try {
-                // Collect form data
                 const formData = {
-                    // Map to your backend fields
                     name: document.getElementById('first-name')?.value || '',
                     surname: document.getElementById('last-name')?.value || '',
                     email: document.getElementById('email')?.value || '',
@@ -499,7 +477,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 console.log('Sending form data:', formData);
                 
-                // Submit to your backend API
                 const response = await fetch('http://localhost:5000/api/forms/tsg-submit', {
                     method: 'POST',
                     headers: {

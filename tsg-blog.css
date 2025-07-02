@@ -3,7 +3,6 @@
     background: var(--white);
 }
 
-/* Blog Header */
 .blog-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -18,7 +17,7 @@
     line-height: 1.6;
 }
 
-/* Featured Post */
+
 .featured-post {
     background: var(--white);
     border-radius: var(--border-radius);
@@ -50,7 +49,7 @@
     padding: 2rem;
 }
 
-/* Post Metadata */
+
 .post-meta {
     margin-bottom: 1rem;
 }
@@ -84,7 +83,6 @@
     margin-bottom: 1rem;
 }
 
-/* Post Tags */
 .post-tags {
     display: flex;
     flex-wrap: wrap;
@@ -109,7 +107,6 @@
     transform: translateY(-1px);
 }
 
-/* Blog Posts Grid */
 .blog-posts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -154,7 +151,6 @@
     margin-bottom: 1rem;
 }
 
-/* Blog Categories */
 .blog-categories {
     margin-bottom: 4rem;
     animation: fadeInUp 0.8s ease-out;
@@ -217,7 +213,6 @@
     border-radius: 12px;
 }
 
-/* Newsletter Signup */
 .newsletter-signup {
     background: linear-gradient(135deg, #FF6D48, var(--secondary-teal));
     color: var(--white);
@@ -309,7 +304,6 @@
     color: var(--white);
 }
 
-/* Enhanced Hover Effects */
 .featured-post:hover .post-title {
     color: var(--secondary-teal);
 }
@@ -318,7 +312,6 @@
     color: var(--secondary-teal);
 }
 
-/* Reading Time Indicator */
 .post-meta::after {
     content: "• 3 min read";
     color: #000000;
@@ -326,7 +319,6 @@
     margin-left: 0.5rem;
 }
 
-/* Social Sharing (Visual Only) */
 .post-content::after {
     content: "";
     display: block;
@@ -335,7 +327,6 @@
     padding-top: 1rem;
 }
 
-/* Responsive Design for Blog Page */
 @media (max-width: 992px) {
     .categories-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -436,7 +427,6 @@
     }
 }
 
-/* Print Styles for Blog Page */
 @media print {
     .featured-post,
     .blog-post-card,
@@ -462,7 +452,6 @@
     }
 }
 
-/* Dark Mode Support for Blog Page */
 @media (prefers-color-scheme: dark) {
     .featured-post,
     .blog-post-card,

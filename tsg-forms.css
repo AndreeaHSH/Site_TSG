@@ -1,14 +1,8 @@
-/* ========================================
-   TSG Application Forms Specific Styles (forms.css)
-   ======================================== */
-
-/* Application Section */
 .application-section {
     padding: 4rem 0;
     background: var(--light-gray);
 }
 
-/* Form Header */
 .form-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -23,7 +17,6 @@
     line-height: 1.6;
 }
 
-/* Application Form Container */
 .application-form-container {
     background: var(--white);
     border-radius: var(--border-radius);
@@ -34,10 +27,10 @@
 }
 
 .application-form {
-    /* Main form container */
+    
 }
 
-/* Form Sections */
+
 .form-section {
     border: none;
     margin-bottom: 3rem;
@@ -67,7 +60,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* Form Labels - FIXED ASTERISK ISSUE */
 .form-label {
     display: inline-block;
     margin-bottom: 0.75rem;
@@ -78,14 +70,12 @@
     width: 100%;
 }
 
-/* Style for manual asterisks in HTML */
 .required-asterisk {
     color: #dc3545;
     font-weight: bold;
     margin-left: 0.25rem;
 }
 
-/* DISABLE ALL AUTOMATIC ASTERISK GENERATION */
 label::after,
 label::before,
 .form-label::after,
@@ -100,7 +90,6 @@ label:has(+ textarea[required])::after {
     display: none !important;
 }
 
-/* Form Inputs */
 .form-input,
 .form-select,
 .form-textarea {
@@ -130,14 +119,12 @@ label:has(+ textarea[required])::after {
     border-color: #bbb;
 }
 
-/* Textarea Specific */
 .form-textarea {
     resize: vertical;
     min-height: 100px;
     line-height: 1.6;
 }
 
-/* File Input */
 .form-file {
     width: 100%;
     padding: 0.75rem;
@@ -161,7 +148,6 @@ label:has(+ textarea[required])::after {
     box-shadow: 0 0 0 3px rgba(255, 109, 72, 0.1);
 }
 
-/* Help Text */
 .form-help {
     display: block;
     margin-top: 0.5rem;
@@ -170,7 +156,6 @@ label:has(+ textarea[required])::after {
     line-height: 1.4;
 }
 
-/* Checkbox Grid */
 .checkbox-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -213,7 +198,6 @@ label:has(+ textarea[required])::after {
     flex: 1;
 }
 
-/* Checkbox Group (for agreements) - FIXED DOUBLE CHECKBOXES */
 .checkbox-group {
     margin-bottom: 2rem;
     padding: 2rem;
@@ -233,7 +217,6 @@ label:has(+ textarea[required])::after {
     position: relative;
 }
 
-/* HIDE the actual HTML checkbox input */
 .form-checkbox {
     position: absolute;
     opacity: 0;
@@ -242,7 +225,6 @@ label:has(+ textarea[required])::after {
     width: 0;
 }
 
-/* Show only our custom checkmark */
 .checkmark {
     width: 24px;
     height: 24px;
@@ -276,7 +258,6 @@ label:has(+ textarea[required])::after {
     box-shadow: 0 0 0 3px rgba(255, 109, 72, 0.1);
 }
 
-/* Form Submit Section */
 .form-submit-section {
     text-align: center;
     padding-top: 2rem;
@@ -299,7 +280,6 @@ label:has(+ textarea[required])::after {
     margin: 0 auto;
 }
 
-/* Additional Information */
 .additional-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -321,7 +301,6 @@ label:has(+ textarea[required])::after {
     font-size: 1.25rem;
 }
 
-/* Process Steps - FIXED OVERLAPPING */
 .process-steps {
     list-style: none;
     padding-left: 0;
@@ -355,7 +334,6 @@ label:has(+ textarea[required])::after {
     flex-shrink: 0;
 }
 
-/* FAQ Items */
 .faq-item {
     margin-bottom: 1.5rem;
     padding: 1rem;
@@ -376,7 +354,6 @@ label:has(+ textarea[required])::after {
     line-height: 1.5;
 }
 
-/* Form Validation States */
 .form-input:invalid,
 .form-select:invalid,
 .form-textarea:invalid {
@@ -389,7 +366,6 @@ label:has(+ textarea[required])::after {
     border-color: #28a745;
 }
 
-/* Loading State */
 .form-submit:disabled {
     background: #ccc;
     cursor: not-allowed;
@@ -407,7 +383,6 @@ label:has(+ textarea[required])::after {
     100% { opacity: 0; }
 }
 
-/* Responsive Design for Forms */
 @media (max-width: 992px) {
     .additional-info {
         grid-template-columns: 1fr;
@@ -544,7 +519,6 @@ label:has(+ textarea[required])::after {
     }
 }
 
-/* Print Styles for Forms */
 @media print {
     .form-submit,
     .additional-info {
@@ -569,7 +543,6 @@ label:has(+ textarea[required])::after {
     }
 }
 
-/* High Contrast Mode */
 @media (prefers-contrast: high) {
     .form-input,
     .form-select,
