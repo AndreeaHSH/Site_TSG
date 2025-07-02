@@ -1,56 +1,262 @@
-<div class="container mt-5">
-    <div *ngIf="loading" class="text-center my-5">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-    
-    <div *ngIf="errorMessage" class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
-    
-    <div *ngIf="!loading && form" class="card">
-      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h2 class="mb-0">Student Form Details</h2>
+<div class="container-fluid mt-4" *ngIf="!loading">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
         <div>
-          <button class="btn btn-warning me-2" [routerLink]="['/forms/edit', form.id]">Edit</button>
-          <button class="btn btn-light" routerLink="/forms">Back to List</button>
+          <h1 class="h2 mb-1">Application Details</h1>
+          <p class="text-muted" *ngIf="form">{{ form.name }} {{ form.surname }}</p>
         </div>
-      </div>
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-3 fw-bold">ID:</div>
-          <div class="col-md-9">{{ form.id }}</div>
-        </div>
-        
-        <div class="row mb-3">
-          <div class="col-md-3 fw-bold">Name:</div>
-          <div class="col-md-9">{{ form.name }}</div>
-        </div>
-        
-        <div class="row mb-3">
-          <div class="col-md-3 fw-bold">Surname:</div>
-          <div class="col-md-9">{{ form.surname }}</div>
-        </div>
-        
-        <div class="row mb-3">
-          <div class="col-md-3 fw-bold">Faculty:</div>
-          <div class="col-md-9">{{ form.faculty }}</div>
-        </div>
-        
-        <div class="row mb-4">
-          <div class="col-md-3 fw-bold">Submission Date:</div>
-          <div class="col-md-9">{{ form.submissionDate | date:'medium' }}</div>
-        </div>
-        
-        <div class="card mb-3">
-          <div class="card-header bg-light">
-            <h5 class="mb-0">Motivation</h5>
-          </div>
-          <div class="card-body">
-            <p class="mb-0" style="white-space: pre-line;">{{ form.motivation }}</p>
-          </div>
+        <div>
+          <a routerLink="/forms" class="btn btn-outline-secondary me-2">
+            <i class="fas fa-arrow-left me-1"></i>
+            Back to List
+          </a>
+          <a [routerLink]="['/forms/edit', form?.id]" class="btn btn-primary" *ngIf="form">
+            <i class="fas fa-edit me-1"></i>
+            Edit Application
+          </a>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    <i class="fas fa-exclamation-circle me-2"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Application Details -->
+  <div *ngIf="form" class="row">
+    <!-- Personal Information -->
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-user me-2"></i>
+            Personal Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="form-label text-muted">First Name</label>
+              <p class="fw-bold">{{ form.name }}</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label text-muted">Last Name</label>
+              <p class="fw-bold">{{ form.surname }}</p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">Email</label>
+              <p class="fw-bold">{{ form.email || 'Not provided' }}</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label text-muted">Phone</label>
+              <p class="fw-bold">{{ form.phone || 'Not provided' }}</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label text-muted">Birth Date</label>
+              <p class="fw-bold">{{ form.birthDate || 'Not provided' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Academic Information -->
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-graduation-cap me-2"></i>
+            Academic Information
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label text-muted">Faculty</label>
+              <p class="fw-bold">{{ form.faculty }}</p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">Specialization</label>
+              <p class="fw-bold">{{ form.specialization || 'Not provided' }}</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label text-muted">Year of Study</label>
+              <p class="fw-bold">{{ form.year || 'Not provided' }}</p>
+            </div>
+            <div class="col-6">
+              <label class="form-label text-muted">Student ID</label>
+              <p class="fw-bold">{{ form.studentId || 'Not provided' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Role Preferences -->
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-star me-2"></i>
+            Role Preferences
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label text-muted">Preferred Role</label>
+              <p>
+                <span class="badge bg-primary fs-6">{{ form.preferredRole || 'Not specified' }}</span>
+              </p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">Alternative Role</label>
+              <p>
+                <span class="badge bg-secondary fs-6" *ngIf="form.alternativeRole">{{ form.alternativeRole }}</span>
+                <span class="text-muted" *ngIf="!form.alternativeRole">Not specified</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Availability -->
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header bg-warning text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-clock me-2"></i>
+            Availability
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label text-muted">Time Commitment</label>
+              <p>
+                <span class="badge bg-success fs-6">{{ form.timeCommitment || 'Not specified' }}</span>
+              </p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">Preferred Schedule</label>
+              <p class="fw-bold">{{ form.schedule || 'Not provided' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="col-12 mb-4">
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-code me-2"></i>
+            Technical Skills
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <label class="form-label text-muted">Programming Languages</label>
+              <p class="mb-0">{{ form.programmingLanguages || 'Not provided' }}</p>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label text-muted">Frameworks & Libraries</label>
+              <p class="mb-0">{{ form.frameworks || 'Not provided' }}</p>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label text-muted">Tools & Software</label>
+              <p class="mb-0">{{ form.tools || 'Not provided' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience and Motivation -->
+    <div class="col-12 mb-4">
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-lightbulb me-2"></i>
+            Experience & Motivation
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-12">
+              <label class="form-label text-muted">Previous Experience</label>
+              <p>{{ form.experience || 'Not provided' }}</p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">Motivation</label>
+              <p>{{ form.motivation }}</p>
+            </div>
+            <div class="col-12">
+              <label class="form-label text-muted">How Can You Contribute</label>
+              <p>{{ form.contribution || 'Not provided' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio and System Info -->
+    <div class="col-12 mb-4">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-folder me-2"></i>
+            Portfolio & Documents
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label text-muted">Portfolio Links</label>
+              <p>{{ form.portfolio || 'Not provided' }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted">CV Upload</label>
+              <div *ngIf="form.cvFileName; else noCv">
+                <p class="mb-1">
+                  <i class="fas fa-file-pdf text-danger me-2"></i>
+                  <strong>{{ form.cvFileName }}</strong>
+                </p>
+                <a [href]="getCvDownloadUrl(form.id)" target="_blank" class="btn btn-sm btn-outline-primary">
+                  <i class="fas fa-download me-1"></i>
+                  Download CV
+                </a>
+              </div>
+              <ng-template #noCv>
+                <p class="text-muted">No CV uploaded</p>
+              </ng-template>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted">Submission Date</label>
+              <p class="fw-bold">{{ form.submissionDate | date:'medium' }}</p>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label text-muted">Application Status</label>
+              <p>
+                <span class="badge bg-success">Submitted</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Loading State -->
+<div *ngIf="loading" class="text-center my-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

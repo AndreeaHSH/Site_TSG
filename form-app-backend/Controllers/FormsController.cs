@@ -57,14 +57,41 @@ namespace form_app_backend.Controllers
 
         // POST: api/Forms
         [HttpPost]
-        public async Task<ActionResult> PostStudentForm([FromBody] StudentFormDto studentFormDto)
+        public async Task<ActionResult> PostStudentForm([FromForm] StudentFormDto studentFormDto, IFormFile? cvFile)
         {
-            _logger.LogInformation("Creating a new student form");
-            
+            _logger.LogInformation("Creating a new student form with file upload");
+
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Invalid model state");
                 return BadRequest(ModelState);
+            }
+
+            // Handle CV file upload
+            string? cvFileName = null;
+            string? cvFilePath = null;
+
+            if (cvFile != null && cvFile.Length > 0)
+            {
+                _logger.LogInformation($"Processing CV file: {cvFile.FileName}, Size: {cvFile.Length}");
+
+                // Create uploads directory if it doesn't exist
+                var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+                Directory.CreateDirectory(uploadsPath);
+
+                // Generate unique filename
+                var fileExtension = Path.GetExtension(cvFile.FileName);
+                cvFileName = cvFile.FileName;
+                var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+                cvFilePath = Path.Combine(uploadsPath, uniqueFileName);
+
+                // Save file to disk
+                using (var stream = new FileStream(cvFilePath, FileMode.Create))
+                {
+                    await cvFile.CopyToAsync(stream);
+                }
+
+                _logger.LogInformation($"CV file saved: {cvFilePath}");
             }
 
             var studentForm = new StudentForm
@@ -72,37 +99,39 @@ namespace form_app_backend.Controllers
                 // Personal Information
                 Name = studentFormDto.Name,
                 Surname = studentFormDto.Surname,
-                Email = studentFormDto.Email ?? "not-provided@example.com",
-                Phone = studentFormDto.Phone ?? "Not provided",
-                BirthDate = studentFormDto.BirthDate ?? DateTime.Now.AddYears(-20),
-                
+                Email = studentFormDto.Email,
+                Phone = studentFormDto.Phone,
+                BirthDate = studentFormDto.BirthDate,
+
                 // Academic Information
                 Faculty = studentFormDto.Faculty,
-                Specialization = studentFormDto.Specialization ?? "Not specified",
-                Year = studentFormDto.Year ?? "Not specified",
+                Specialization = studentFormDto.Specialization,
+                Year = studentFormDto.Year,
                 StudentId = studentFormDto.StudentId,
-                
+
                 // Role Preferences
-                PreferredRole = studentFormDto.PreferredRole ?? "Not specified",
+                PreferredRole = studentFormDto.PreferredRole,
                 AlternativeRole = studentFormDto.AlternativeRole,
-                
+
                 // Technical Skills
                 ProgrammingLanguages = studentFormDto.ProgrammingLanguages,
                 Frameworks = studentFormDto.Frameworks,
                 Tools = studentFormDto.Tools,
-                
+
                 // Experience and Motivation
                 Experience = studentFormDto.Experience,
                 Motivation = studentFormDto.Motivation,
-                Contribution = studentFormDto.Contribution ?? "Not specified",
-                
+                Contribution = studentFormDto.Contribution,
+
                 // Availability
-                TimeCommitment = studentFormDto.TimeCommitment ?? "Not specified",
+                TimeCommitment = studentFormDto.TimeCommitment,
                 Schedule = studentFormDto.Schedule,
-                
+
                 // Documents
                 Portfolio = studentFormDto.Portfolio,
-                
+                CvFileName = cvFileName,
+                CvFilePath = cvFilePath,
+
                 // System fields
                 SubmissionDate = DateTime.UtcNow
             };
@@ -117,6 +146,32 @@ namespace form_app_backend.Controllers
 
             // Return the PDF file
             return File(pdfBytes, "application/pdf", $"StudentForm_{studentForm.Id}.pdf");
+        }
+
+        // GET: api/Forms/5/cv - Download CV file
+        [HttpGet("{id}/cv")]
+        public async Task<ActionResult> DownloadCv(int id)
+        {
+            _logger.LogInformation($"Downloading CV for form ID: {id}");
+            
+            var studentForm = await _context.StudentForms.FindAsync(id);
+            
+            if (studentForm == null)
+            {
+                _logger.LogWarning($"Student form with ID: {id} not found");
+                return NotFound();
+            }
+            
+            if (string.IsNullOrEmpty(studentForm.CvFilePath) || !System.IO.File.Exists(studentForm.CvFilePath))
+            {
+                _logger.LogWarning($"CV file not found for form ID: {id}");
+                return NotFound("CV file not found");
+            }
+            
+            var fileBytes = await System.IO.File.ReadAllBytesAsync(studentForm.CvFilePath);
+            var contentType = "application/pdf"; // Default to PDF, you can make this dynamic based on file extension
+            
+            return File(fileBytes, contentType, studentForm.CvFileName);
         }
 
         // PUT: api/Forms/5
@@ -204,6 +259,20 @@ namespace form_app_backend.Controllers
             {
                 _logger.LogWarning($"Student form with ID: {id} not found");
                 return NotFound();
+            }
+
+            // Delete CV file if it exists
+            if (!string.IsNullOrEmpty(studentForm.CvFilePath) && System.IO.File.Exists(studentForm.CvFilePath))
+            {
+                try
+                {
+                    System.IO.File.Delete(studentForm.CvFilePath);
+                    _logger.LogInformation($"Deleted CV file: {studentForm.CvFilePath}");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, $"Could not delete CV file: {studentForm.CvFilePath}");
+                }
             }
 
             _context.StudentForms.Remove(studentForm);

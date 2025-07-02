@@ -34,6 +34,8 @@ export interface StudentForm {
 
   // Documents/Portfolio
   portfolio?: string;
+  cvFileName?: string;
+  cvFilePath?: string;
 
   // Agreements
   dataProcessingAgreement?: boolean;

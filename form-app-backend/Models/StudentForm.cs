@@ -29,7 +29,7 @@ namespace form_app_backend.Models
         public string Phone { get; set; } = string.Empty;
         
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         
         // Academic Information
         [Required]

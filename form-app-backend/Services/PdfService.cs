@@ -43,7 +43,7 @@ namespace form_app_backend.Services
                     .SetFontSize(12));
                 document.Add(new Paragraph($"Phone: {studentForm.Phone}")
                     .SetFontSize(12));
-                document.Add(new Paragraph($"Birth Date: {studentForm.BirthDate.ToString("yyyy-MM-dd")}")
+                document.Add(new Paragraph($"Birth Date: {studentForm.BirthDate?.ToString("yyyy-MM-dd") ?? "Not provided"}")
                     .SetFontSize(12));
 
                 // Academic Information Section

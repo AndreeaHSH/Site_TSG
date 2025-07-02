@@ -35,18 +35,15 @@ async function handleFormSubmission(event) {
     submitBtn.textContent = 'Se trimite...';
     
     try {
-        // Collect form data
-        const formData = collectFormData(form);
-        console.log('📊 Form data collected:', formData);
+       // Collect form data with file upload
+        const formData = collectFormDataWithFiles(form);
+        console.log('📊 Form data collected with files');
         
-        // Submit to backend
+        // Submit to backend (multipart form data for file upload)
         const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.submitForm}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             mode: 'cors',
-            body: JSON.stringify(formData)
+            body: formData  // Send FormData directly (no JSON, no Content-Type header)
         });
         
          if (response.ok) {
@@ -73,8 +70,62 @@ async function handleFormSubmission(event) {
 }
 
 
+function collectFormDataWithFiles(form) {
+    const formData = new FormData();
+    
+    // Add all text fields
+    formData.append('name', form.querySelector('[name="first_name"]')?.value || '');
+    formData.append('surname', form.querySelector('[name="last_name"]')?.value || '');
+    formData.append('email', form.querySelector('[name="email"]')?.value || '');
+    formData.append('phone', form.querySelector('[name="phone"]')?.value || '');
+    formData.append('birthDate', form.querySelector('[name="birth_date"]')?.value || '');
+    formData.append('faculty', form.querySelector('[name="faculty"]')?.value || '');
+    formData.append('specialization', form.querySelector('[name="specialization"]')?.value || '');
+    formData.append('year', form.querySelector('[name="year"]')?.value || '');
+    formData.append('studentId', form.querySelector('[name="student_id"]')?.value || '');
+    formData.append('preferredRole', form.querySelector('[name="preferred_role"]')?.value || '');
+    formData.append('alternativeRole', form.querySelector('[name="alternative_role"]')?.value || '');
+    formData.append('programmingLanguages', form.querySelector('[name="programming_languages"]')?.value || '');
+    formData.append('frameworks', form.querySelector('[name="frameworks"]')?.value || '');
+    formData.append('tools', form.querySelector('[name="tools"]')?.value || '');
+    formData.append('experience', form.querySelector('[name="experience"]')?.value || '');
+    formData.append('motivation', form.querySelector('[name="motivation"]')?.value || '');
+    formData.append('contribution', form.querySelector('[name="contribution"]')?.value || '');
+    formData.append('timeCommitment', form.querySelector('[name="time_commitment"]')?.value || '');
+    formData.append('schedule', form.querySelector('[name="schedule"]')?.value || '');
+    formData.append('portfolio', form.querySelector('[name="portfolio"]')?.value || '');
+    
+    // Add checkboxes
+    formData.append('dataProcessingAgreement', form.querySelector('[name="data_processing"]')?.checked || false);
+    formData.append('termsAgreement', form.querySelector('[name="terms"]')?.checked || false);
+    formData.append('newsletterSubscription', form.querySelector('[name="newsletter"]')?.checked || false);
+    
+    // Add CV file if present
+    const cvFileInput = form.querySelector('[name="cv"]');
+    if (cvFileInput && cvFileInput.files && cvFileInput.files[0]) {
+        const cvFile = cvFileInput.files[0];
+        formData.append('cvFile', cvFile);
+        console.log('📎 CV file added to upload:', cvFile.name, 'Size:', cvFile.size);
+    }
+    
+    return formData;
+}
+
+/**
+ * Collect form data and map to backend structure
+ */
 function collectFormData(form) {
-    const formData = new FormData(form);
+    
+    // Handle CV file upload
+    const cvFile = formData.get('cv');
+    let cvFileName = null;
+    let cvFileData = null;
+    
+    if (cvFile && cvFile.size > 0) {
+        cvFileName = cvFile.name;
+        // For now, we'll just send the filename - file upload to be implemented
+        console.log('CV file selected:', cvFileName, 'Size:', cvFile.size);
+    }
     
     return {
         // Personal Information
@@ -110,6 +161,7 @@ function collectFormData(form) {
         
         // Documents/Portfolio
         portfolio: formData.get('portfolio') || '',
+        cvFileName: cvFileName, // Add CV filename
         
         // Agreements
         dataProcessingAgreement: formData.get('data_processing') === 'on',

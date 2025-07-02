@@ -65,7 +65,8 @@ namespace form_app_backend.DTOs
         
         public string? Schedule { get; set; }
         
-        // Documents (optional)
         public string? Portfolio { get; set; }
+        
+        public string? CvFileName { get; set; }
     }
 }

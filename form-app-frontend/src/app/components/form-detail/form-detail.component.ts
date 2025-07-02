@@ -30,7 +30,7 @@ export class FormDetailComponent implements OnInit {
     if (id) {
       this.loading = true;
       this.errorMessage = '';
-      
+
       this.formService.getForm(+id)
         .subscribe({
           next: (data: StudentForm) => {
@@ -44,5 +44,9 @@ export class FormDetailComponent implements OnInit {
           }
         });
     }
+  }
+  getCvDownloadUrl(formId?: number): string {
+    if (!formId) return '#';
+    return `http://localhost:5000/api/forms/${formId}/cv`;
   }
 }
