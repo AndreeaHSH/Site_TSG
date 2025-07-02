@@ -1,0 +1,92 @@
+<div class="container mt-5">
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+  
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  
+  <div *ngIf="!loading" class="card">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2 class="mb-0">Edit Student Form</h2>
+      <button class="btn btn-light" routerLink="/forms">Back to List</button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': submitted && f['name'].errors}"
+          >
+          <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors?.['required']">Name is required</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="surname" class="form-label">Surname</label>
+          <input 
+            type="text" 
+            id="surname" 
+            formControlName="surname" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': submitted && f['surname'].errors}"
+          >
+          <div *ngIf="submitted && f['surname'].errors" class="invalid-feedback">
+            <div *ngIf="f['surname'].errors?.['required']">Surname is required</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="faculty" class="form-label">Faculty</label>
+          <input 
+            type="text" 
+            id="faculty" 
+            formControlName="faculty" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': submitted && f['faculty'].errors}"
+          >
+          <div *ngIf="submitted && f['faculty'].errors" class="invalid-feedback">
+            <div *ngIf="f['faculty'].errors?.['required']">Faculty is required</div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label for="motivation" class="form-label">Motivation for Participation</label>
+          <textarea 
+            id="motivation" 
+            formControlName="motivation" 
+            class="form-control" 
+            rows="5"
+            [ngClass]="{'is-invalid': submitted && f['motivation'].errors}"
+          ></textarea>
+          <div *ngIf="submitted && f['motivation'].errors" class="invalid-feedback">
+            <div *ngIf="f['motivation'].errors?.['required']">Motivation is required</div>
+            <div *ngIf="f['motivation'].errors?.['minlength']">Motivation must be at least 100 characters</div>
+          </div>
+          <small class="form-text text-muted">
+            Characters: {{ f['motivation'].value?.length || 0 }}/100 minimum
+          </small>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary" [disabled]="submitting">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
