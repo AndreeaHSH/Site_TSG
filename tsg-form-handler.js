@@ -1,9 +1,8 @@
-
 // Configuration - CHANGE THIS if your backend runs on different port
 const API_CONFIG = {
     baseUrl: 'http://localhost:5000',
     endpoints: {
-        submitForm: '/api/forms'
+        submitForm: '/api/forms/upload'  // CHANGED: Use upload endpoint for file support
     }
 };
 
@@ -46,13 +45,26 @@ async function handleFormSubmission(event) {
             body: formData  // Send FormData directly (no JSON, no Content-Type header)
         });
         
-         if (response.ok) {
-            showSuccessNotification('Aplicația a fost trimisă cu succes!', 'Te vom contacta în curând.');
+        if (response.ok) {
+            // The response should be a PDF file
+            const blob = await response.blob();
             
-            // Redirect to home page after 2 seconds
+            // Download the PDF
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `TSG_Application_${Date.now()}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            showSuccessNotification('Aplicația a fost trimisă cu succes!', 'PDF-ul a fost descărcat. Te vom contacta în curând.');
+            
+            // Redirect to home page after 3 seconds
             setTimeout(() => {
                 window.location.href = '../../index.html';
-            }, 2000);
+            }, 3000);
         } else {
             const errorText = await response.text();
             console.error('❌ Server error:', errorText);
@@ -69,11 +81,10 @@ async function handleFormSubmission(event) {
     }
 }
 
-
 function collectFormDataWithFiles(form) {
     const formData = new FormData();
     
-    // Add all text fields
+    // Add all text fields - FIXED: Match your HTML field names
     formData.append('name', form.querySelector('[name="first_name"]')?.value || '');
     formData.append('surname', form.querySelector('[name="last_name"]')?.value || '');
     formData.append('email', form.querySelector('[name="email"]')?.value || '');
@@ -100,74 +111,15 @@ function collectFormDataWithFiles(form) {
     formData.append('termsAgreement', form.querySelector('[name="terms"]')?.checked || false);
     formData.append('newsletterSubscription', form.querySelector('[name="newsletter"]')?.checked || false);
     
-    // Add CV file if present
+    // Add CV file if present - FIXED: Use correct field name 'cv'
     const cvFileInput = form.querySelector('[name="cv"]');
     if (cvFileInput && cvFileInput.files && cvFileInput.files[0]) {
         const cvFile = cvFileInput.files[0];
-        formData.append('cvFile', cvFile);
+        formData.append('cv', cvFile);  // CHANGED: from 'cvFile' to 'cv'
         console.log('📎 CV file added to upload:', cvFile.name, 'Size:', cvFile.size);
     }
     
     return formData;
-}
-
-/**
- * Collect form data and map to backend structure
- */
-function collectFormData(form) {
-    
-    // Handle CV file upload
-    const cvFile = formData.get('cv');
-    let cvFileName = null;
-    let cvFileData = null;
-    
-    if (cvFile && cvFile.size > 0) {
-        cvFileName = cvFile.name;
-        // For now, we'll just send the filename - file upload to be implemented
-        console.log('CV file selected:', cvFileName, 'Size:', cvFile.size);
-    }
-    
-    return {
-        // Personal Information
-        name: formData.get('first_name') || '',
-        surname: formData.get('last_name') || '',
-        email: formData.get('email') || '',
-        phone: formData.get('phone') || '',
-        birthDate: formData.get('birth_date') || null,
-        
-        // Academic Information  
-        faculty: formData.get('faculty') || '',
-        specialization: formData.get('specialization') || '',
-        year: formData.get('year') || '',
-        studentId: formData.get('student_id') || '',
-        
-        // Role Preferences
-        preferredRole: formData.get('preferred_role') || '',
-        alternativeRole: formData.get('alternative_role') || '',
-        
-        // Technical Skills
-        programmingLanguages: formData.get('programming_languages') || '',
-        frameworks: formData.get('frameworks') || '',
-        tools: formData.get('tools') || '',
-        
-        // Experience and Motivation
-        experience: formData.get('experience') || '',
-        motivation: formData.get('motivation') || '',
-        contribution: formData.get('contribution') || '',
-        
-        // Availability
-        timeCommitment: formData.get('time_commitment') || '',
-        schedule: formData.get('schedule') || '',
-        
-        // Documents/Portfolio
-        portfolio: formData.get('portfolio') || '',
-        cvFileName: cvFileName, // Add CV filename
-        
-        // Agreements
-        dataProcessingAgreement: formData.get('data_processing') === 'on',
-        termsAgreement: formData.get('terms') === 'on',
-        newsletterSubscription: formData.get('newsletter') === 'on'
-    };
 }
 
 /**
@@ -226,7 +178,6 @@ function createNotification(title, message, type) {
     }, 5000);
 }
 
-
 function closeNotification() {
     const notification = document.getElementById('tsg-notification');
     if (notification) {
@@ -236,6 +187,7 @@ function closeNotification() {
         }, 300);
     }
 }
+
 function addLoadingStyles() {
     if (document.getElementById('tsg-form-styles')) return;
     
@@ -314,92 +266,6 @@ function addLoadingStyles() {
             background-color: #f0f0f0;
             color: #333;
         }
-
-        .success-page {
-            opacity: 0;
-            transition: opacity 0.5s ease-in;
-            text-align: center;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            color: white;
-            margin-bottom: 3rem;
-        }
-        
-        .success-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .success-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: bounce 1s ease-in-out infinite alternate;
-        }
-        
-        .success-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-        
-        .success-message {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-        
-        .success-details {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-        
-        .success-details ul {
-            margin: 1rem 0 0 1rem;
-        }
-        
-        .success-details li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .success-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .success-actions .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s ease;
-        }
-        
-        .success-actions .btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .success-actions .btn-primary {
-            background: #FF6D48;
-            color: white;
-            border: none;
-        }
-        
-        .success-actions .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-        }
-        
-        @keyframes bounce {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-10px); }
-        }
     `;
     
     document.head.appendChild(styles);
@@ -407,59 +273,3 @@ function addLoadingStyles() {
 
 // Initialize styles when page loads
 addLoadingStyles();
-
-/**
- * Show success page and hide form
- */
-function showSuccessPage() {
-    const formContainer = document.querySelector('.application-form-container');
-    
-    if (formContainer) {
-        // Fade out the form
-        formContainer.style.transition = 'opacity 0.5s ease-out';
-        formContainer.style.opacity = '0';
-        
-        setTimeout(() => {
-            // Hide form and show success message
-            formContainer.style.display = 'none';
-            
-            // Create success page
-            const successDiv = document.createElement('div');
-            successDiv.className = 'success-page';
-            successDiv.innerHTML = `
-                <div class="success-content">
-                    <div class="success-icon">🎉</div>
-                    <h2 class="success-title">Aplicația a fost trimisă cu succes!</h2>
-                    <p class="success-message">
-                        Mulțumim pentru interesul acordat echipei Transilvania Star Group!<br>
-                        Te vom contacta în termen de 7-14 zile cu un răspuns.
-                    </p>
-                    <div class="success-details">
-                        <p><strong>Ce urmează:</strong></p>
-                        <ul>
-                            <li>Verificăm aplicația ta</li>
-                            <li>Te contactăm pentru un interviu</li>
-                            <li>Îți trimitem detalii despre echipă</li>
-                        </ul>
-                    </div>
-                    <div class="success-actions">
-                        <a href="../../index.html" class="btn btn-primary">
-                            Înapoi la Pagina Principală
-                        </a>
-                        <button onclick="location.reload()" class="btn btn-secondary">
-                            Aplică Din Nou
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            // Insert success page
-            formContainer.parentNode.insertBefore(successDiv, formContainer);
-            
-            // Fade in success page
-            setTimeout(() => {
-                successDiv.style.opacity = '1';
-            }, 100);
-        }, 500);
-    }
-}

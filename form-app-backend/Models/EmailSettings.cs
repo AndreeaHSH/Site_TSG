@@ -11,3 +11,4 @@ namespace form_app_backend.Models
         public string AdminEmail { get; set; } = string.Empty;
     }
 }
+
