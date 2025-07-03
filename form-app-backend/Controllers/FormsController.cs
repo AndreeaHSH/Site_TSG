@@ -20,17 +20,20 @@ namespace form_app_backend.Controllers
         private readonly IPdfService _pdfService;
         private readonly IEmailService _emailService;
         private readonly ILogger<FormsController> _logger;
+        private readonly IWebHostEnvironment _environment;
 
         public FormsController(
             ApplicationDbContext context, 
             IPdfService pdfService,
             IEmailService emailService,
-            ILogger<FormsController> logger)
+            ILogger<FormsController> logger,
+            IWebHostEnvironment environment)
         {
             _context = context;
             _pdfService = pdfService;
             _emailService = emailService;
             _logger = logger;
+            _environment = environment;
         }
 
         // GET: api/Forms
@@ -58,11 +61,11 @@ namespace form_app_backend.Controllers
             return studentForm;
         }
 
-        // POST: api/Forms
+        // POST: api/Forms (JSON - for Angular frontend)
         [HttpPost]
         public async Task<ActionResult> PostStudentForm([FromBody] StudentFormDto studentFormDto)
         {
-            _logger.LogInformation("Creating a new student form");
+            _logger.LogInformation("Creating a new student form (JSON)");
             
             if (!ModelState.IsValid)
             {
@@ -70,68 +73,63 @@ namespace form_app_backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var studentForm = new StudentForm
-            {
-                // Personal Information
-                Name = studentFormDto.Name,
-                Surname = studentFormDto.Surname,
-                Email = studentFormDto.Email,
-                Phone = studentFormDto.Phone,
-                BirthDate = studentFormDto.BirthDate,
-                
-                // Academic Information
-                Faculty = studentFormDto.Faculty,
-                Specialization = studentFormDto.Specialization,
-                Year = studentFormDto.Year,
-                StudentId = studentFormDto.StudentId,
-                
-                // Role Preferences
-                PreferredRole = studentFormDto.PreferredRole,
-                AlternativeRole = studentFormDto.AlternativeRole,
-                
-                // Technical Skills
-                ProgrammingLanguages = studentFormDto.ProgrammingLanguages,
-                Frameworks = studentFormDto.Frameworks,
-                Tools = studentFormDto.Tools,
-                
-                // Experience and Motivation
-                Experience = studentFormDto.Experience,
-                Motivation = studentFormDto.Motivation,
-                Contribution = studentFormDto.Contribution,
-                
-                // Availability
-                TimeCommitment = studentFormDto.TimeCommitment,
-                Schedule = studentFormDto.Schedule,
-                
-                // Documents
-                Portfolio = studentFormDto.Portfolio,
-                
-                // System fields
-                SubmissionDate = DateTime.UtcNow
-            };
-
+            var studentForm = await CreateStudentFormFromDto(studentFormDto, null);
+            
             _context.StudentForms.Add(studentForm);
             await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Created student form with ID: {studentForm.Id}");
 
-            // Generate PDF
-            var pdfBytes = _pdfService.GeneratePdf(studentForm);
+            return await GeneratePdfAndSendEmail(studentForm);
+        }
 
-            // Send admin notification email with PDF attachment
+        // POST: api/Forms/upload (Multipart - for HTML form with file upload)
+        [HttpPost("upload")]
+        public async Task<ActionResult> PostStudentFormWithFile()
+        {
+            _logger.LogInformation("Creating a new student form with file upload");
+
             try
             {
-                await _emailService.SendNotificationEmailAsync(studentForm, pdfBytes);
-                _logger.LogInformation($"Admin notification email sent for form ID: {studentForm.Id}");
+                // Extract form data from multipart request
+                var studentFormDto = await ExtractFormDataFromRequest();
+                
+                if (studentFormDto == null)
+                {
+                    return BadRequest("Invalid form data");
+                }
+
+                // Handle file upload
+                IFormFile? cvFile = null;
+                if (Request.Form.Files.Count > 0)
+                {
+                    cvFile = Request.Form.Files["cv"];
+                    if (cvFile != null)
+                    {
+                        _logger.LogInformation($"CV file received: {cvFile.FileName}, Size: {cvFile.Length}");
+                        
+                        // Validate file
+                        if (!IsValidFile(cvFile))
+                        {
+                            return BadRequest("Invalid file type or size. Please upload PDF, DOC, or DOCX files under 5MB.");
+                        }
+                    }
+                }
+
+                var studentForm = await CreateStudentFormFromDto(studentFormDto, cvFile);
+                
+                _context.StudentForms.Add(studentForm);
+                await _context.SaveChangesAsync();
+
+                _logger.LogInformation($"Created student form with ID: {studentForm.Id}");
+
+                return await GeneratePdfAndSendEmail(studentForm);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Failed to send admin notification email for form ID: {studentForm.Id}");
-                // Continue execution - don't fail the request if email fails
+                _logger.LogError(ex, "Error processing form with file upload");
+                return StatusCode(500, "Internal server error");
             }
-
-            // Return the PDF file
-            return File(pdfBytes, "application/pdf", $"StudentForm_{studentForm.Id}.pdf");
         }
 
         // PUT: api/Forms/5
@@ -154,26 +152,7 @@ namespace form_app_backend.Controllers
             }
 
             // Update properties
-            studentForm.Name = studentFormDto.Name;
-            studentForm.Surname = studentFormDto.Surname;
-            studentForm.Email = studentFormDto.Email;
-            studentForm.Phone = studentFormDto.Phone;
-            studentForm.BirthDate = studentFormDto.BirthDate;
-            studentForm.Faculty = studentFormDto.Faculty;
-            studentForm.Specialization = studentFormDto.Specialization;
-            studentForm.Year = studentFormDto.Year;
-            studentForm.StudentId = studentFormDto.StudentId;
-            studentForm.PreferredRole = studentFormDto.PreferredRole;
-            studentForm.AlternativeRole = studentFormDto.AlternativeRole;
-            studentForm.ProgrammingLanguages = studentFormDto.ProgrammingLanguages;
-            studentForm.Frameworks = studentFormDto.Frameworks;
-            studentForm.Tools = studentFormDto.Tools;
-            studentForm.Experience = studentFormDto.Experience;
-            studentForm.Motivation = studentFormDto.Motivation;
-            studentForm.Contribution = studentFormDto.Contribution;
-            studentForm.TimeCommitment = studentFormDto.TimeCommitment;
-            studentForm.Schedule = studentFormDto.Schedule;
-            studentForm.Portfolio = studentFormDto.Portfolio;
+            UpdateStudentFormFromDto(studentForm, studentFormDto);
 
             try
             {
@@ -210,11 +189,207 @@ namespace form_app_backend.Controllers
                 return NotFound();
             }
 
+            // Delete associated CV file if exists
+            if (!string.IsNullOrEmpty(studentForm.CvFilePath))
+            {
+                var filePath = Path.Combine(_environment.WebRootPath, studentForm.CvFilePath);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
             _context.StudentForms.Remove(studentForm);
             await _context.SaveChangesAsync();
 
             _logger.LogInformation($"Successfully deleted student form with ID: {id}");
             return NoContent();
+        }
+
+        // Helper Methods
+        private async Task<StudentForm> CreateStudentFormFromDto(StudentFormDto dto, IFormFile? cvFile)
+        {
+            var studentForm = new StudentForm
+            {
+                // Personal Information
+                Name = dto.Name ?? "",
+                Surname = dto.Surname ?? "",
+                Email = dto.Email,
+                Phone = dto.Phone,
+                BirthDate = dto.BirthDate,
+                
+                // Academic Information
+                Faculty = dto.Faculty ?? "",
+                Specialization = dto.Specialization,
+                Year = dto.Year,
+                StudentId = dto.StudentId,
+                
+                // Role Preferences
+                PreferredRole = dto.PreferredRole,
+                AlternativeRole = dto.AlternativeRole,
+                
+                // Technical Skills
+                ProgrammingLanguages = dto.ProgrammingLanguages,
+                Frameworks = dto.Frameworks,
+                Tools = dto.Tools,
+                
+                // Experience and Motivation
+                Experience = dto.Experience,
+                Motivation = dto.Motivation ?? "",
+                Contribution = dto.Contribution,
+                
+                // Availability
+                TimeCommitment = dto.TimeCommitment,
+                Schedule = dto.Schedule,
+                
+                // Documents
+                Portfolio = dto.Portfolio,
+                
+                // System fields
+                SubmissionDate = DateTime.UtcNow
+            };
+
+            // Handle CV file upload
+            if (cvFile != null)
+            {
+                var uploadResult = await SaveCvFile(cvFile);
+                studentForm.CvFileName = uploadResult.FileName;
+                studentForm.CvFilePath = uploadResult.FilePath;
+            }
+
+            return studentForm;
+        }
+
+        private void UpdateStudentFormFromDto(StudentForm studentForm, StudentFormDto dto)
+        {
+            studentForm.Name = dto.Name ?? studentForm.Name;
+            studentForm.Surname = dto.Surname ?? studentForm.Surname;
+            studentForm.Email = dto.Email;
+            studentForm.Phone = dto.Phone;
+            studentForm.BirthDate = dto.BirthDate;
+            studentForm.Faculty = dto.Faculty ?? studentForm.Faculty;
+            studentForm.Specialization = dto.Specialization;
+            studentForm.Year = dto.Year;
+            studentForm.StudentId = dto.StudentId;
+            studentForm.PreferredRole = dto.PreferredRole;
+            studentForm.AlternativeRole = dto.AlternativeRole;
+            studentForm.ProgrammingLanguages = dto.ProgrammingLanguages;
+            studentForm.Frameworks = dto.Frameworks;
+            studentForm.Tools = dto.Tools;
+            studentForm.Experience = dto.Experience;
+            studentForm.Motivation = dto.Motivation ?? studentForm.Motivation;
+            studentForm.Contribution = dto.Contribution;
+            studentForm.TimeCommitment = dto.TimeCommitment;
+            studentForm.Schedule = dto.Schedule;
+            studentForm.Portfolio = dto.Portfolio;
+        }
+
+        private async Task<ActionResult> GeneratePdfAndSendEmail(StudentForm studentForm)
+        {
+            // Generate PDF
+            var pdfBytes = _pdfService.GeneratePdf(studentForm);
+
+            // Send admin notification email with PDF attachment
+            try
+            {
+                await _emailService.SendNotificationEmailAsync(studentForm, pdfBytes);
+                _logger.LogInformation($"Admin notification email sent for form ID: {studentForm.Id}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Failed to send admin notification email for form ID: {studentForm.Id}");
+                // Continue execution - don't fail the request if email fails
+            }
+
+            // Return the PDF file
+            return File(pdfBytes, "application/pdf", $"StudentForm_{studentForm.Id}.pdf");
+        }
+
+        private async Task<StudentFormDto?> ExtractFormDataFromRequest()
+        {
+            try
+            {
+                var form = Request.Form;
+                
+                // Parse birth date
+                DateTime? birthDate = null;
+                if (DateTime.TryParse(form["birthDate"], out var parsedDate))
+                {
+                    birthDate = parsedDate;
+                }
+
+                // Parse boolean values
+                bool.TryParse(form["dataProcessingAgreement"], out var dataProcessing);
+                bool.TryParse(form["termsAgreement"], out var terms);
+                bool.TryParse(form["newsletterSubscription"], out var newsletter);
+
+                return new StudentFormDto
+                {
+                    Name = form["name"].ToString(),
+                    Surname = form["surname"].ToString(),
+                    Email = form["email"].ToString(),
+                    Phone = form["phone"].ToString(),
+                    BirthDate = birthDate,
+                    Faculty = form["faculty"].ToString(),
+                    Specialization = form["specialization"].ToString(),
+                    Year = form["year"].ToString(),
+                    StudentId = form["studentId"].ToString(),
+                    PreferredRole = form["preferredRole"].ToString(),
+                    AlternativeRole = form["alternativeRole"].ToString(),
+                    ProgrammingLanguages = form["programmingLanguages"].ToString(),
+                    Frameworks = form["frameworks"].ToString(),
+                    Tools = form["tools"].ToString(),
+                    Experience = form["experience"].ToString(),
+                    Motivation = form["motivation"].ToString(),
+                    Contribution = form["contribution"].ToString(),
+                    TimeCommitment = form["timeCommitment"].ToString(),
+                    Schedule = form["schedule"].ToString(),
+                    Portfolio = form["portfolio"].ToString(),
+                    DataProcessingAgreement = dataProcessing,
+                    TermsAgreement = terms,
+                    NewsletterSubscription = newsletter
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error extracting form data from request");
+                return null;
+            }
+        }
+
+        private bool IsValidFile(IFormFile file)
+        {
+            // Check file size (5MB limit)
+            if (file.Length > 5 * 1024 * 1024)
+                return false;
+
+            // Check file extension
+            var allowedExtensions = new[] { ".pdf", ".doc", ".docx" };
+            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            
+            return allowedExtensions.Contains(fileExtension);
+        }
+
+        private async Task<(string FileName, string FilePath)> SaveCvFile(IFormFile file)
+        {
+            // Create uploads directory if it doesn't exist
+            var uploadsDir = Path.Combine(_environment.WebRootPath, "uploads", "cvs");
+            Directory.CreateDirectory(uploadsDir);
+
+            // Generate unique filename
+            var fileExtension = Path.GetExtension(file.FileName);
+            var uniqueFileName = $"{Guid.NewGuid()}{fileExtension}";
+            var filePath = Path.Combine(uploadsDir, uniqueFileName);
+
+            // Save file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            // Return relative path for database storage
+            var relativePath = Path.Combine("uploads", "cvs", uniqueFileName);
+            return (file.FileName, relativePath);
         }
 
         private bool StudentFormExists(int id)

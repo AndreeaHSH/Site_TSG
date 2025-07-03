@@ -4,69 +4,84 @@ namespace form_app_backend.DTOs
 {
     public class StudentFormDto
     {
-        // Personal Information (keep original 4 fields required for Angular compatibility)
+        // Personal Information
         [Required]
         [StringLength(100)]
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
         
         [Required]
         [StringLength(100)]
-        public string Surname { get; set; } = string.Empty;
+        public string? Surname { get; set; }
         
-        // Make Email and Phone optional to maintain Angular compatibility
+        [Required]
         [EmailAddress]
         [StringLength(150)]
         public string? Email { get; set; }
         
+        [Required]
         [StringLength(20)]
         public string? Phone { get; set; }
         
+        [Required]
         public DateTime? BirthDate { get; set; }
         
-        // Academic Information (keep Faculty required for Angular compatibility)
+        // Academic Information
         [Required]
         [StringLength(200)]
-        public string Faculty { get; set; } = string.Empty;
+        public string? Faculty { get; set; }
         
+        [Required]
         [StringLength(200)]
         public string? Specialization { get; set; }
         
+        [Required]
         [StringLength(20)]
         public string? Year { get; set; }
         
         [StringLength(50)]
         public string? StudentId { get; set; }
         
-        // Role Preferences (optional for Angular compatibility)
+        // Role Preferences
+        [Required]
         [StringLength(100)]
         public string? PreferredRole { get; set; }
         
         [StringLength(100)]
         public string? AlternativeRole { get; set; }
         
-        // Technical Skills (all optional)
+        // Technical Skills
         public string? ProgrammingLanguages { get; set; }
-        
         public string? Frameworks { get; set; }
-        
         public string? Tools { get; set; }
         
-        // Experience and Motivation (keep Motivation required for Angular compatibility)
+        // Experience and Motivation
         public string? Experience { get; set; }
         
         [Required]
         [MinLength(100, ErrorMessage = "Motivation must be at least 100 characters long.")]
-        public string Motivation { get; set; } = string.Empty;
+        public string? Motivation { get; set; }
         
+        [Required]
         public string? Contribution { get; set; }
         
-        // Availability (all optional)
+        // Availability
+        [Required]
+        [StringLength(50)]
         public string? TimeCommitment { get; set; }
         
         public string? Schedule { get; set; }
         
+        // Documents
         public string? Portfolio { get; set; }
+        public IFormFile? CvFile { get; set; }
         
-        public string? CvFileName { get; set; }
+        // Agreements
+        [Required]
+        public bool DataProcessingAgreement { get; set; }
+        
+        [Required]
+        public bool TermsAgreement { get; set; }
+        
+        public bool NewsletterSubscription { get; set; }
     }
 }
