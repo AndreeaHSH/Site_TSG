@@ -223,22 +223,29 @@
               <label class="form-label text-muted">Portfolio Links</label>
               <p>{{ form.portfolio || 'Not provided' }}</p>
             </div>
+
+            <!-- CORRECTED CV DOWNLOAD SECTION -->
             <div class="col-md-6">
               <label class="form-label text-muted">CV Upload</label>
-              <div *ngIf="form.cvFileName; else noCv">
+              <div *ngIf="hasCv(form); else noCv">
                 <p class="mb-1">
-                  <i class="fas fa-file-pdf text-danger me-2"></i>
+                  <i [class]="getCvIcon(form.cvFileName!)" class="text-danger me-2"></i>
                   <strong>{{ form.cvFileName }}</strong>
                 </p>
-                <a [href]="getCvDownloadUrl(form.id)" target="_blank" class="btn btn-sm btn-outline-primary">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="downloadCv(form.id!, form.cvFileName!)"
+                  title="Download CV">
                   <i class="fas fa-download me-1"></i>
                   Download CV
-                </a>
+                </button>
               </div>
               <ng-template #noCv>
                 <p class="text-muted">No CV uploaded</p>
               </ng-template>
             </div>
+
             <div class="col-md-6">
               <label class="form-label text-muted">Submission Date</label>
               <p class="fw-bold">{{ form.submissionDate | date:'medium' }}</p>
@@ -253,6 +260,8 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 <!-- Loading State -->
 <div *ngIf="loading" class="text-center my-5">

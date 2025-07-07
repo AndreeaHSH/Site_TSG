@@ -83,7 +83,7 @@ namespace form_app_backend.Controllers
             return await GeneratePdfAndSendEmail(studentForm);
         }
 
-        // POST: api/Forms/upload (Multipart - for HTML form with file upload)
+        // POST: api/Forms/upload )
         [HttpPost("upload")]
         public async Task<ActionResult> PostStudentFormWithFile()
         {
@@ -206,6 +206,73 @@ namespace form_app_backend.Controllers
             return NoContent();
         }
 
+        // Add this method to your FormsController class (after the DELETE method)
+
+        // GET: api/Forms/5/cv
+        [HttpGet("{id}/cv")]
+        public async Task<ActionResult> DownloadCv(int id)
+    {
+        _logger.LogInformation($"Downloading CV for student form ID: {id}");
+    
+        var studentForm = await _context.StudentForms.FindAsync(id);
+    
+        if (studentForm == null)
+    {
+        _logger.LogWarning($"Student form with ID: {id} not found");
+        return NotFound("Application not found");
+    }
+    
+    if (string.IsNullOrEmpty(studentForm.CvFilePath) || string.IsNullOrEmpty(studentForm.CvFileName))
+    {
+        _logger.LogWarning($"No CV file found for student form ID: {id}");
+        return NotFound("CV file not found - no file was uploaded");
+    }
+    
+    // Construct full file path
+    var fullFilePath = Path.Combine(_environment.WebRootPath, studentForm.CvFilePath);
+    
+    _logger.LogInformation($"Looking for CV file at: {fullFilePath}");
+    
+    // Check if file exists on disk
+    if (!System.IO.File.Exists(fullFilePath))
+    {
+        _logger.LogError($"CV file not found on disk: {fullFilePath}");
+        return NotFound($"CV file not found on server. Expected location: {studentForm.CvFilePath}");
+    }
+    
+    try
+    {
+        // Read file from disk
+        var fileBytes = await System.IO.File.ReadAllBytesAsync(fullFilePath);
+        
+        // Determine content type based on file extension
+        var contentType = GetContentType(studentForm.CvFileName);
+        
+        _logger.LogInformation($"Serving CV file: {studentForm.CvFileName} ({fileBytes.Length} bytes)");
+        
+        return File(fileBytes, contentType, studentForm.CvFileName);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, $"Error reading CV file: {fullFilePath}");
+        return StatusCode(500, "Error reading CV file from server");
+    }
+}
+
+// Helper method to determine content type
+private string GetContentType(string fileName)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    return extension switch
+    {
+        ".pdf" => "application/pdf",
+        ".doc" => "application/msword",
+        ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        _ => "application/octet-stream"
+    };
+}
+
+
         // Helper Methods
         private async Task<StudentForm> CreateStudentFormFromDto(StudentFormDto dto, IFormFile? cvFile)
         {
@@ -217,34 +284,34 @@ namespace form_app_backend.Controllers
                 Email = dto.Email,
                 Phone = dto.Phone,
                 BirthDate = dto.BirthDate,
-                
+
                 // Academic Information
                 Faculty = dto.Faculty ?? "",
                 Specialization = dto.Specialization,
                 Year = dto.Year,
                 StudentId = dto.StudentId,
-                
+
                 // Role Preferences
                 PreferredRole = dto.PreferredRole,
                 AlternativeRole = dto.AlternativeRole,
-                
+
                 // Technical Skills
                 ProgrammingLanguages = dto.ProgrammingLanguages,
                 Frameworks = dto.Frameworks,
                 Tools = dto.Tools,
-                
+
                 // Experience and Motivation
                 Experience = dto.Experience,
                 Motivation = dto.Motivation ?? "",
                 Contribution = dto.Contribution,
-                
+
                 // Availability
                 TimeCommitment = dto.TimeCommitment,
                 Schedule = dto.Schedule,
-                
+
                 // Documents
                 Portfolio = dto.Portfolio,
-                
+
                 // System fields
                 SubmissionDate = DateTime.UtcNow
             };
