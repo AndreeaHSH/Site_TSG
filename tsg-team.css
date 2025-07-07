@@ -264,6 +264,11 @@
     box-shadow: var(--shadow-light);
 }
 
+.alumni-list {
+  display: none;
+  margin-top: 10px;
+}
+
 .alumni-description {
     color: #666;
     max-width: 600px;

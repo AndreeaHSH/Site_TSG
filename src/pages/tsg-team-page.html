@@ -387,5 +387,21 @@
             </div>
         </div>
     </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const title = document.querySelector(".section-title");
+    const list = document.querySelector(".alumni-list");
+
+    title.addEventListener("click", function () {
+      if (list.style.display === "none" || list.style.display === "") {
+        list.style.display = "block";
+      } else {
+        list.style.display = "none";
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

@@ -36,6 +36,38 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Configure WebRootPath for Docker environment
+if (string.IsNullOrEmpty(app.Environment.WebRootPath))
+{
+    app.Environment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+}
+
+// Ensure wwwroot directory exists
+if (!Directory.Exists(app.Environment.WebRootPath))
+{
+    Directory.CreateDirectory(app.Environment.WebRootPath);
+}
+
+// Configure static files
+app.UseStaticFiles();
+
+// Apply Entity Framework migrations on startup
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    try
+    {
+        app.Logger.LogInformation("Applying Entity Framework migrations...");
+        context.Database.Migrate();
+        app.Logger.LogInformation("Entity Framework migrations applied successfully.");
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "Failed to apply Entity Framework migrations.");
+        throw;
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

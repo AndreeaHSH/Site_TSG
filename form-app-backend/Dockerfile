@@ -32,6 +32,12 @@ ENV PATH="$PATH:/opt/mssql-tools/bin"
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+# Create wwwroot directory structure for file uploads
+RUN mkdir -p /app/wwwroot/uploads/cvs && \
+    chmod 755 /app/wwwroot && \
+    chmod 755 /app/wwwroot/uploads && \
+    chmod 755 /app/wwwroot/uploads/cvs
+
 # Copy the entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
