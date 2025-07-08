@@ -55,7 +55,7 @@ namespace form_app_backend.Models
         [StringLength(100)]
         public string? AlternativeRole { get; set; }
         
-        // Technical Skills (stored as JSON strings)
+        // Technical Skills 
         public string? ProgrammingLanguages { get; set; } // JSON array
         
         public string? Frameworks { get; set; }

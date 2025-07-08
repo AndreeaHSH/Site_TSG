@@ -61,7 +61,7 @@ namespace form_app_backend.Controllers
             return studentForm;
         }
 
-        // POST: api/Forms (JSON - for Angular frontend)
+        // POST: api/Forms 
         [HttpPost]
         public async Task<ActionResult> PostStudentForm([FromBody] StudentFormDto studentFormDto)
         {
@@ -189,7 +189,6 @@ namespace form_app_backend.Controllers
                 return NotFound();
             }
 
-            // Delete associated CV file if exists
             if (!string.IsNullOrEmpty(studentForm.CvFilePath))
             {
                 var filePath = Path.Combine(_environment.WebRootPath, studentForm.CvFilePath);
@@ -205,8 +204,6 @@ namespace form_app_backend.Controllers
             _logger.LogInformation($"Successfully deleted student form with ID: {id}");
             return NoContent();
         }
-
-        // Add this method to your FormsController class (after the DELETE method)
 
         // GET: api/Forms/5/cv
         [HttpGet("{id}/cv")]

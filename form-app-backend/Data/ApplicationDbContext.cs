@@ -16,11 +16,9 @@ namespace form_app_backend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure StudentForm entity with the correct table name
             modelBuilder.Entity<StudentForm>()
                 .ToTable("StudentForm", "dbo");  // This maps to the SQL table name
 
-            // Configure Id as an identity column
             modelBuilder.Entity<StudentForm>()
                 .Property(s => s.Id)
                 .UseIdentityColumn();

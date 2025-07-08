@@ -1,12 +1,10 @@
-// Configuration - CHANGE THIS if your backend runs on different port
 const API_CONFIG = {
     baseUrl: 'http://localhost:5000',
     endpoints: {
-        submitForm: '/api/forms/upload'  // CHANGED: Use upload endpoint for file support
+        submitForm: '/api/forms/upload'  /
     }
 };
 
-// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('.application-form');
     const submitBtn = document.querySelector('.form-submit');
@@ -19,9 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-/**
- * Handle form submission
- */
+
 async function handleFormSubmission(event) {
     event.preventDefault();
     console.log('📝 Form submitted');
@@ -29,7 +25,6 @@ async function handleFormSubmission(event) {
     const form = event.target;
     const submitBtn = form.querySelector('.form-submit');
     
-    // Show loading
     submitBtn.disabled = true;
     submitBtn.textContent = 'Se trimite...';
     
@@ -38,11 +33,11 @@ async function handleFormSubmission(event) {
         const formData = collectFormDataWithFiles(form);
         console.log('📊 Form data collected with files');
         
-        // Submit to backend (multipart form data for file upload)
+        // Submit to backend 
         const response = await fetch(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.submitForm}`, {
             method: 'POST',
             mode: 'cors',
-            body: formData  // Send FormData directly (no JSON, no Content-Type header)
+            body: formData  // Send FormData directly 
         });
         
         if (response.ok) {
@@ -84,7 +79,6 @@ async function handleFormSubmission(event) {
 function collectFormDataWithFiles(form) {
     const formData = new FormData();
     
-    // Add all text fields - FIXED: Match your HTML field names
     formData.append('name', form.querySelector('[name="first_name"]')?.value || '');
     formData.append('surname', form.querySelector('[name="last_name"]')?.value || '');
     formData.append('email', form.querySelector('[name="email"]')?.value || '');
@@ -106,47 +100,38 @@ function collectFormDataWithFiles(form) {
     formData.append('schedule', form.querySelector('[name="schedule"]')?.value || '');
     formData.append('portfolio', form.querySelector('[name="portfolio"]')?.value || '');
     
-    // Add checkboxes
     formData.append('dataProcessingAgreement', form.querySelector('[name="data_processing"]')?.checked || false);
     formData.append('termsAgreement', form.querySelector('[name="terms"]')?.checked || false);
     formData.append('newsletterSubscription', form.querySelector('[name="newsletter"]')?.checked || false);
     
-    // Add CV file if present - FIXED: Use correct field name 'cv'
+    // Add CV file if present 
     const cvFileInput = form.querySelector('[name="cv"]');
     if (cvFileInput && cvFileInput.files && cvFileInput.files[0]) {
         const cvFile = cvFileInput.files[0];
-        formData.append('cv', cvFile);  // CHANGED: from 'cvFile' to 'cv'
+        formData.append('cv', cvFile); 
         console.log('📎 CV file added to upload:', cvFile.name, 'Size:', cvFile.size);
     }
     
     return formData;
 }
 
-/**
- * Show success notification
- */
+
 function showSuccessNotification(title, message) {
     createNotification(title, message, 'success');
 }
 
-/**
- * Show error notification  
- */
+
 function showErrorNotification(title, message) {
     createNotification(title, message, 'error');
 }
 
-/**
- * Create beautiful animated notification
- */
+
 function createNotification(title, message, type) {
-    // Remove any existing notifications
     const existing = document.getElementById('tsg-notification');
     if (existing) {
         existing.remove();
     }
     
-    // Create notification element
     const notification = document.createElement('div');
     notification.id = 'tsg-notification';
     notification.className = `tsg-notification tsg-notification-${type}`;
@@ -164,15 +149,12 @@ function createNotification(title, message, type) {
         </div>
     `;
     
-    // Add to page
     document.body.appendChild(notification);
     
-    // Trigger animation
     setTimeout(() => {
         notification.classList.add('tsg-notification-show');
     }, 100);
     
-    // Auto-hide after 5 seconds
     setTimeout(() => {
         closeNotification();
     }, 5000);
@@ -271,5 +253,4 @@ function addLoadingStyles() {
     document.head.appendChild(styles);
 }
 
-// Initialize styles when page loads
 addLoadingStyles();

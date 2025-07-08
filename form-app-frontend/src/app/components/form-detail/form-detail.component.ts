@@ -95,7 +95,6 @@ export class FormDetailComponent implements OnInit {
     return form && form.cvFileName && form.cvFileName.trim().length > 0;
   }
 
-  // Helper method to get file icon based on extension (Font Awesome icons)
   getCvIcon(fileName: string): string {
     if (!fileName) return 'fas fa-file';
 

@@ -20,11 +20,9 @@ builder.Services.Configure<EmailSettings>(
 builder.Services.AddScoped<IPdfService, PdfService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
-// Configure Swagger/OpenAPI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", 
@@ -36,13 +34,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure WebRootPath for Docker environment
 if (string.IsNullOrEmpty(app.Environment.WebRootPath))
 {
     app.Environment.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
 }
 
-// Ensure wwwroot directory exists
 if (!Directory.Exists(app.Environment.WebRootPath))
 {
     Directory.CreateDirectory(app.Environment.WebRootPath);
